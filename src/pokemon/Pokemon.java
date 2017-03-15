@@ -18,13 +18,22 @@ public class Pokemon implements PokemonAttacks{
 		this.secondaryAttr = secondaryAttr;
 	}
 	
-	void takeDamage(int amount)
+	public void takeDamage(int amount)
 	{
 		hp-=amount;
 	}
-	void heal(int amount)
+	public void heal(int amount)
 	{
 		hp+=amount;
+	}
+	
+	public void printInfo()
+	{
+		System.out.println("The name of your pokemon is " + this.getName());
+		System.out.println("The max health points for " + this.getName()+" is " + this.getMaxHP());
+		System.out.println(name+" currently has "+ this.getHp());
+		System.out.println("Your pokemon attacks for " + this.getAttackDmg());
+		System.out.println(name+"'s attributes are "+this.getPrimaryAttr()+" and "+this.getSecondaryAttr());
 	}
 
 	public int getMaxHP() {
@@ -37,6 +46,10 @@ public class Pokemon implements PokemonAttacks{
 
 	public int getAttackDmg() {
 		return attackDmg;
+	}
+
+	public void setAttackDmg(int attackDmg) {
+		this.attackDmg = attackDmg;
 	}
 
 	public String getName() {
@@ -57,8 +70,17 @@ public class Pokemon implements PokemonAttacks{
 
 	
 	
+	
 	@Override
 	public int razorLeaf() {
+		return 0;
+	}
+	@Override
+	public int flamethrower() {
+		return 0;
+	}
+	@Override
+	public int hidroPump() {
 		return 0;
 	}
 	
