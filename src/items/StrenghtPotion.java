@@ -6,7 +6,7 @@ public class StrenghtPotion extends Potion{
 	private int increaseFor;
 	
 	public StrenghtPotion(int quantity) {
-		super(quantity);
+		super(quantity, 20);
 		increaseFor = 10;
 	}
 	

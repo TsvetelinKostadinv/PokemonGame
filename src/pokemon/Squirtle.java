@@ -2,9 +2,13 @@ package pokemon;
 
 public class Squirtle extends Pokemon{
 
-	public Squirtle(int maxHP, int attackDmg, String name, String primaryAttr, String secondaryAttr) {
-		super(maxHP, attackDmg, name, primaryAttr, secondaryAttr);
+	public Squirtle(int maxHP, int attackDmg, String name) {
+		super(maxHP, attackDmg, "water", "water");
 	}
+	public Squirtle() {
+		super(100, 30, "water", "water");
+	}
+	
 	@Override
 	public int hidroPump()
 	{

@@ -6,7 +6,7 @@ public class HealPotion extends Potion{
 	private int healFor;
 	
 	public HealPotion(int quantity) {
-		super(quantity);
+		super(quantity, 10);
 		this.healFor = 20;
 	}
 	

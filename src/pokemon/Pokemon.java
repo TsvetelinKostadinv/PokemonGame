@@ -1,5 +1,7 @@
 package pokemon;
 
+import java.util.Scanner;
+
 public class Pokemon implements PokemonAttacks{
 	private int maxHP;
 	private int hp;
@@ -8,14 +10,26 @@ public class Pokemon implements PokemonAttacks{
 	private String primaryAttr;
 	private String secondaryAttr;
 	
-	public Pokemon(int maxHP, int attackDmg, String name, String primaryAttr, String secondaryAttr) {
+	Scanner input = new Scanner(System.in);
+	public Pokemon(int maxHP, int attackDmg, String primaryAttr, String secondaryAttr) {
 		super();
 		this.maxHP = maxHP;
 		this.hp = maxHP;
 		this.attackDmg = attackDmg;
-		this.name = name;
+		System.out.println("Insert a name for your Pokemon: ");
+		this.name = input.nextLine();
 		this.primaryAttr = primaryAttr;
 		this.secondaryAttr = secondaryAttr;
+	}
+	
+
+	public void printInfo()
+	{
+		System.out.println("The name of your pokemon is " + this.getName());
+		System.out.println("The max health points for " + this.getName()+" is " + this.getMaxHP());
+		System.out.println(name+" currently has "+ this.getHp());
+		System.out.println("Your pokemon attacks for " + this.getAttackDmg());
+		System.out.println(name+"'s attributes are "+this.getPrimaryAttr()+" and "+this.getSecondaryAttr());
 	}
 	
 	public void takeDamage(int amount)
@@ -27,15 +41,6 @@ public class Pokemon implements PokemonAttacks{
 		hp+=amount;
 	}
 	
-	public void printInfo()
-	{
-		System.out.println("The name of your pokemon is " + this.getName());
-		System.out.println("The max health points for " + this.getName()+" is " + this.getMaxHP());
-		System.out.println(name+" currently has "+ this.getHp());
-		System.out.println("Your pokemon attacks for " + this.getAttackDmg());
-		System.out.println(name+"'s attributes are "+this.getPrimaryAttr()+" and "+this.getSecondaryAttr());
-	}
-
 	public int getMaxHP() {
 		return maxHP;
 	}
