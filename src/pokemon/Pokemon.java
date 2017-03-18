@@ -29,7 +29,7 @@ public class Pokemon implements PokemonAttacks{
 		System.out.println("The max health points for " + this.getName()+" is " + this.getMaxHP());
 		System.out.println(name+" currently has "+ this.getHp());
 		System.out.println("Your pokemon attacks for " + this.getAttackDmg());
-		System.out.println(name+"'s attributes are "+this.getPrimaryAttr()+" and "+this.getSecondaryAttr());
+		System.out.println(this.getName()+"'s attributes are "+this.getPrimaryAttr()+" and "+this.getSecondaryAttr());
 	}
 	
 	public void takeDamage(int amount)
