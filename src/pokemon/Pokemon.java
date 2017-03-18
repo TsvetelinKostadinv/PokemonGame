@@ -75,17 +75,44 @@ public class Pokemon implements PokemonAttacks{
 
 	
 	
-	
-	@Override
+	//grass +ground/rock/water -flying/poison/bug/steel/fire/grass/dragon
 	public int razorLeaf() {
 		return 0;
 	}
-	@Override
+	//fire +bug/steel/grass/ice -rock/fire/water/dragon
 	public int flamethrower() {
 		return 0;
 	}
-	@Override
+	//water +ground/rock/fire -water/grass/dragon
 	public int hidroPump() {
+		return 0;
+	} 
+	//normal -rock/steel --ghost
+	public int hyperFang() {
+		return 0;
+	}
+	//bug +grass/psychic/dark -fighting/flying/poison/ghost/steel/fire/fairy
+	public int leechLife() {
+		return 0;
+	}
+	//electricity +flying/water -grass/electricity/dragon --ground 
+	public int thunderstrike() {
+		return 0;
+	}
+	//rock +flying/bug/fire/ice -fight/ground/steel	
+	public int rockThrow() {
+		return 0;
+	}
+	//ghost +ghost/psychic --normal
+	public int shadowBall() {
+		return 0;
+	}
+	//fighting +normal/rock/steel/ice/dark -flying/poison/bug/psychic/fairy
+	public int machPunch() {
+		return 0;
+	}
+	//flying +grass/bug/fighting -rock/steel/electric
+	public int gust() {
 		return 0;
 	}
 	
