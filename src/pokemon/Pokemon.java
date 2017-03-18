@@ -30,6 +30,7 @@ public class Pokemon implements PokemonAttacks{
 		System.out.println(name+" currently has "+ this.getHp());
 		System.out.println("Your pokemon attacks for " + this.getAttackDmg());
 		System.out.println(this.getName()+"'s attributes are "+this.getPrimaryAttr()+" and "+this.getSecondaryAttr());
+		//moves
 	}
 	
 	public void takeDamage(int amount)

@@ -6,7 +6,7 @@ public class Caterpie extends Pokemon{
 		super(maxHP, attackDmg, "bug", "bug");
 	}
 	public Caterpie() {
-		super(100, 30, "water", "water");
+		super(100, 30, "bug", "bug");
 	}
 	
 	@Override
@@ -14,7 +14,9 @@ public class Caterpie extends Pokemon{
 	{
 		//Should be done in the Pokemon.java class it seems
 		//heals for 1/4 of the damage dealt
-		//if (this.getAttackDmg()/4 + ...)
+		if (this.getAttackDmg()/4 + this.getHp()>this.getMaxHP()){
+			this.heal(getAttackDmg()/4);
+		}
 		return this.getAttackDmg();
 	}
 }
