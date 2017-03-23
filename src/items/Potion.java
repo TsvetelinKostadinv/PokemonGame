@@ -4,10 +4,7 @@ import pokemon.Pokemon;
 
 public class Potion {
 	protected int quantity;
-
 	private int sellsFor;
-
-
 
 	public Potion(int quantity, int sellsFor) {
 		super();
