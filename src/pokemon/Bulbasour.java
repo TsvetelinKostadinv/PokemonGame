@@ -1,6 +1,6 @@
 package pokemon;
 
-public class Bulbasour extends Pokemon {
+public class Bulbasour extends Pokemon implements AttacksGrass{
 
 	public Bulbasour(int maxHP, int attackDmg, String name) {
 		super(maxHP, attackDmg, "grass", "poison");
@@ -8,11 +8,26 @@ public class Bulbasour extends Pokemon {
 	public Bulbasour() {
 		super(150, 25, "grass", "poison");
 	}
-	
 	@Override
-	public int razorLeaf()
+	public int hyperFang()
 	{
+		System.out.println(this.getName()+" used Hyper Fang!");
 		return this.getAttackDmg();
 	}
-	
+	@Override
+	public int tackle() {
+		System.out.println(this.getName()+" used Tackle!");
+		return this.getAttackDmg()/2;
+	}
+	@Override
+	public int razorLeaf() {
+		System.out.println(this.getName()+" used Razor Leaf");
+		return 0;
+	}
+	@Override
+	public int leechLife() {
+		System.out.println(this.getName()+" used Leech Life");
+		return 0;
+	}
+
 }
