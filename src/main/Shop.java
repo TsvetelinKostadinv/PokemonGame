@@ -15,6 +15,14 @@ import main.Player;
 public class Shop {
 	private static List<Potion> potions = new ArrayList<>();
 	
+	
+	
+	//there are already classes for the different types of potions
+	//there is no need to make a description in the super-class
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	
+	
 	 //List<List<Potion>> potions = new ArrayList<>();
 //	static List<Potion> healingPotion = new ArrayList<>();
 //	static List<Potion> maxHealingPotion = new ArrayList<>();

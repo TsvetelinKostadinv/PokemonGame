@@ -11,6 +11,8 @@ public class Pokemon{
 	private String secondaryAttr;
 	
 	Scanner input = new Scanner(System.in);
+	
+	
 	public Pokemon(int maxHP, int attackDmg, String primaryAttr, String secondaryAttr) {
 		super();
 		this.maxHP = maxHP;
@@ -75,25 +77,5 @@ public class Pokemon{
 		return secondaryAttr;
 	}
 
-	
-	
-	//grass +ground/rock/water -flying/poison/bug/steel/fire/grass/dragon
 
-	//fire +bug/steel/grass/ice -rock/fire/water/dragon
-
-	//water +ground/rock/fire -water/grass/dragon
-
-	//normal -rock/steel --ghost
-
-	//bug +grass/psychic/dark -fighting/flying/poison/ghost/steel/fire/fairy
-
-	//electricity +flying/water -grass/electricity/dragon --ground 
-
-	//rock +flying/bug/fire/ice -fight/ground/steel	
-
-	//ghost +ghost/psychic --normal
-
-	//fighting +normal/rock/steel/ice/dark -flying/poison/bug/psychic/fairy
-
-	//flying +grass/bug/fighting -rock/steel/electric
 }

@@ -12,6 +12,7 @@ public class ConsoleRenderer implements Renderer{
 		System.out.println("Hello!");
 		System.out.println("What is your name?");
 		Player.name=input.nextLine();
+		input.close();
 	}
 
 	@Override
@@ -28,21 +29,6 @@ public class ConsoleRenderer implements Renderer{
 		System.out.println("[10]Rattata");
 		System.out.println("Insert the number of"
 				+ " the pokemon you want to view");
-		Scanner input = new Scanner(System.in);
-		int chosen = input.nextInt();
-		switch(chosen)
-		{
-		case 1:break;
-		case 2:break;
-		case 3:break;
-		case 4:break;
-		case 5:break;
-		case 6:break;
-		case 7:break;
-		case 8:break;
-		case 9:break;
-		case 10:break;
-		}
 	}
 
 	@Override
