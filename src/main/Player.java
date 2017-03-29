@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import items.HealPotion;
 import items.MaxHPPotion;
+import items.StrenghtPotion;
 import items.Potion;
 import pokemon.Bulbasour;
 import pokemon.Caterpie;
@@ -27,7 +28,12 @@ public final class  Player {
 	
 	private static Scanner input = new Scanner(System.in);
 	public static String name;
-	private static int money=0;
+	private static int money = 200;
+	
+	private static int numberOfHealingPots = 20;
+	private static int numberOfMaxHPPots = 5;
+	private static int numberOfStrenghtPots = 15;
+	
 	private static List<Potion> potions = new ArrayList<>();
 	
 	private static List<Pokemon> pokemons = new ArrayList<>();
@@ -35,12 +41,12 @@ public final class  Player {
 
 	public static void initPotions()
 	{	
-		int numberOfHealingPots = 20;
-		int numberOfMaxHPPots = 5;
-		int numberOfStrenghtPots = 15;
+//		int numberOfHealingPots = 20;
+//		int numberOfMaxHPPots = 5;
+//		int numberOfStrenghtPots = 15;
 		potions.add(new HealPotion(numberOfHealingPots));
 		potions.add(new MaxHPPotion(numberOfMaxHPPots));
-		potions.add(new MaxHPPotion(numberOfStrenghtPots));
+		potions.add(new StrenghtPotion(numberOfStrenghtPots));
 	}
 	
 	
@@ -75,6 +81,50 @@ public final class  Player {
 	private Player()
 	{
 		
+	}
+
+
+
+	public static int getMoney() {
+		return money;
+	}
+
+
+
+	public static void setMoney(int money) {
+		Player.money = money;
+	}
+	
+	public static int getNumberOfHealingPots() {
+		return numberOfHealingPots;
+	}
+
+	public static void setNumberOfHealingPots(int numberOfHealingPots) {
+		Player.numberOfHealingPots = numberOfHealingPots;
+	}
+
+
+
+	public static int getNumberOfMaxHPPots() {
+		return numberOfMaxHPPots;
+	}
+
+
+
+	public static void setNumberOfMaxHPPots(int numberOfMaxHPPots) {
+		Player.numberOfMaxHPPots = numberOfMaxHPPots;
+	}
+
+
+
+	public static int getNumberOfStrenghtPots() {
+		return numberOfStrenghtPots;
+	}
+
+
+
+	public static void setNumberOfStrenghtPots(int numberOfStrenghtPots) {
+		Player.numberOfStrenghtPots = numberOfStrenghtPots;
 	}
 	
 	
