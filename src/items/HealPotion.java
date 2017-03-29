@@ -6,8 +6,12 @@ public class HealPotion extends Potion{
 	private int healFor;
 	
 	public HealPotion(int quantity) {
-		super(quantity, 10);
+		super("Health potion", "Restores 25 health to your Pokemon.", 10, quantity);
 		this.healFor = 20;
+	}
+	
+	int getHealFor() {
+		return healFor;
 	}
 	
 	@Override
@@ -17,4 +21,5 @@ public class HealPotion extends Potion{
 		this.quantity-=1;
 		pokemon.heal(healFor);
 	}
+
 }
