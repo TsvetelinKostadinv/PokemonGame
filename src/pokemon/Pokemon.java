@@ -32,8 +32,8 @@ public class Pokemon{
 		System.out.println("The max health points for " + this.getName()+" is " + this.getMaxHP());
 		System.out.println(name+" currently has "+ this.getHp());
 		System.out.println("Your pokemon attacks for " + this.getAttackDmg());
-		System.out.println(this.getName()+"'s attributes are "+this.getPrimaryAttr()+" and "+this.getSecondaryAttr());
-		//moves
+		System.out.println(this.getName()+"'s attributes are "+this.getPrimaryAttr()
+		+" and "+this.getSecondaryAttr());
 	}
 	
 	public void takeDamage(int amount)
@@ -75,6 +75,13 @@ public class Pokemon{
 	
 	public String getSecondaryAttr() {
 		return secondaryAttr;
+	}
+
+
+
+	public void printAbilities() {
+		System.out.println("Here go the abilities");
+		
 	}
 
 

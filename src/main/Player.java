@@ -23,7 +23,6 @@ import main.ConsoleRenderer;
 
 public final class  Player {
 	
-	
 	static ConsoleRenderer console = new ConsoleRenderer();
 	
 	private static Scanner input = new Scanner(System.in);
@@ -38,12 +37,11 @@ public final class  Player {
 	
 	private static List<Pokemon> pokemons = new ArrayList<>();
 	
+	
 
 	public static void initPotions()
 	{	
-//		int numberOfHealingPots = 20;
-//		int numberOfMaxHPPots = 5;
-//		int numberOfStrenghtPots = 15;
+
 		potions.add(new HealPotion(numberOfHealingPots));
 		potions.add(new MaxHPPotion(numberOfMaxHPPots));
 		potions.add(new StrenghtPotion(numberOfStrenghtPots));
@@ -78,12 +76,7 @@ public final class  Player {
 	}
 	
 	
-	private Player()
-	{
-		
-	}
-
-
+	private Player(){}
 
 	public static int getMoney() {
 		return money;
@@ -103,13 +96,9 @@ public final class  Player {
 		Player.numberOfHealingPots = numberOfHealingPots;
 	}
 
-
-
 	public static int getNumberOfMaxHPPots() {
 		return numberOfMaxHPPots;
 	}
-
-
 
 	public static void setNumberOfMaxHPPots(int numberOfMaxHPPots) {
 		Player.numberOfMaxHPPots = numberOfMaxHPPots;
@@ -125,6 +114,22 @@ public final class  Player {
 
 	public static void setNumberOfStrenghtPots(int numberOfStrenghtPots) {
 		Player.numberOfStrenghtPots = numberOfStrenghtPots;
+	}
+
+
+
+	public static String getName() {
+		return name;
+	}
+
+
+
+	public static void setName(String name) {
+		Player.name = name;
+	}
+
+	public static List<Pokemon> getPokemons() {
+		return pokemons;
 	}
 	
 	

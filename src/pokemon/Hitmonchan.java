@@ -30,4 +30,12 @@ public class Hitmonchan extends Pokemon implements AttacksFighting{
 		System.out.println(this.getName()+" used Kick");
 		return this.getAttackDmg()*2;
 	}
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("[3]Punch");
+		System.out.println("[4]Kick");
+	}
 }

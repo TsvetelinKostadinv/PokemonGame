@@ -29,6 +29,14 @@ public class Pidgey extends Pokemon implements AttacksFlying{
 		System.out.println(this.getName()+" used Gust");
 		return this.getAttackDmg()*2;
 	}
-
+	
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("[3]Steel Wing");
+		System.out.println("[4]Gust");
+	}
 
 }

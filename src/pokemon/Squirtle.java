@@ -36,5 +36,14 @@ public class Squirtle extends Pokemon implements AttacksWater{
 		System.out.println(this.getName()+" used Hyper Fang!");
 		return this.getAttackDmg();
 	}
+	
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("[3]Hyderopump");
+		System.out.println("[4]Splash");
+	}
 
 }

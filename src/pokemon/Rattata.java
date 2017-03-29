@@ -20,4 +20,12 @@ public class Rattata extends Pokemon implements AttacksNormal{
 		System.out.println(this.getName()+" used Tackle!");
 		return this.getAttackDmg();
 	}
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("Rattata is not very interesting, is it.");
+	}
+	
 }

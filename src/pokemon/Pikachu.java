@@ -31,5 +31,13 @@ public class Pikachu extends Pokemon implements AttacksElectric{
 		return this.getAttackDmg()*2;
 	}
 	
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("[3]Thunderbolt");
+		System.out.println("[4]Thunderstrike");
+	}
 
 }

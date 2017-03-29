@@ -36,4 +36,13 @@ public class Caterpie extends Pokemon implements AttacksGrass{
 		System.out.println(this.getName()+" used Razor Leaf");
 		return this.getAttackDmg()*2;
 	}
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("[3]Razor leaf");
+		System.out.println("[4]Leech Life");
+	}
+	
 }

@@ -7,4 +7,7 @@ public interface Renderer {
 	void printStarterPokemon();
 	void printShop();
 	void printAbilities(Pokemon pokemon);
+	void printMenu();
+	void showPokemon();
+	void printMenuForPokemon(Pokemon pokemon);
 }

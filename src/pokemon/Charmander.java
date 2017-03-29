@@ -22,6 +22,11 @@ public class Charmander extends Pokemon implements AttacksFire{
 	}
 	@Override
 	public int flamethrower() {
+		
+		if(this.getName().equals("Hans"))
+		{
+			System.out.println("Hans get ze flammenwerfer....oh wrong meme...");
+		}
 		System.out.println(this.getName()+" used Flamethrower");
 		return this.getAttackDmg()*2;
 	}
@@ -30,5 +35,13 @@ public class Charmander extends Pokemon implements AttacksFire{
 	public int fireBall() {
 		System.out.println(this.getName()+" used Fire Ball");		
 		return this.getAttackDmg()*2;
+	}
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("[3]Flamethrower");
+		System.out.println("[4]Fire ball");
 	}
 }

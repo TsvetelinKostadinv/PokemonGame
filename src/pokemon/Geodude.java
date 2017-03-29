@@ -30,4 +30,13 @@ public class Geodude extends Pokemon implements AttacksEarth{
 		System.out.println(this.getName()+" used Earthquake");
 		return this.getAttackDmg()*2;
 	}
+	@Override
+	public void printAbilities()
+	{
+		System.out.println("[1]Hyper Fang");
+		System.out.println("[2]Tackle");
+		System.out.println("[3]Rock throw");
+		System.out.println("[4]Earthquake");
+	}
+	
 }
