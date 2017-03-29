@@ -6,10 +6,10 @@ public class MaxHPPotion extends Potion {
 
 	
 	public MaxHPPotion(int quantity) {
-		super(quantity, 50);
+		super("Max health potion", "Restores all health to your Pokemon.", 50, quantity);
 		
 	}
-	
+
 	@Override
 	public void activate(Pokemon pokemon)
 	{
