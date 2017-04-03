@@ -26,7 +26,7 @@ public class StrenghtPotion extends Potion{
 	@Override
 	public void activate(Pokemon pokemon)
 	{
-		System.out.println("You used you potion to heal " + pokemon.getName());
+		System.out.println("You used you potion to double the attack of " + pokemon.getName());
 		this.quantity-=1;
 		pokemon.setAttackDmg(increaseFor+pokemon.getAttackDmg());
 	}

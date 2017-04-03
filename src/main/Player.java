@@ -29,9 +29,9 @@ public final class  Player {
 	public static String name;
 	private static int money = 200;
 	
-	private static int numberOfHealingPots = 20;
+	private static int numberOfHealingPots = 5;
 	private static int numberOfMaxHPPots = 5;
-	private static int numberOfStrenghtPots = 15;
+	private static int numberOfStrenghtPots = 5;
 	
 	private static List<Potion> potions = new ArrayList<>();
 	
@@ -49,29 +49,20 @@ public final class  Player {
 	
 	
 	
-	public static void choosePokemon()
+	public static void choosePokemon(int num)
 	{
-		for(int i=0;i<3;i++)
+		switch(num)
 		{
-			int num=0;
-			do{
-				console.printStarterPokemon();
-				num = input.nextInt();
-			}while(num<1 || num>10);
-			
-			switch(num)
-			{
-			case 1: pokemons.add(new Squirtle());break;
-			case 2: pokemons.add(new Bulbasour());break;
-			case 3: pokemons.add(new Charmander());break;
-			case 4: pokemons.add(new Caterpie());break;
-			case 5: pokemons.add(new Geodude());break;
-			case 6: pokemons.add(new Ghastly());break;
-			case 7: pokemons.add(new Hitmonchan());break;
-			case 8: pokemons.add(new Pidgey());break;
-			case 9: pokemons.add(new Pikachu());break;
-			case 10:pokemons.add(new Rattata());break;
-			}
+		case 1: pokemons.add(new Squirtle());break;
+		case 2: pokemons.add(new Bulbasour());break;
+		case 3: pokemons.add(new Charmander());break;
+		case 4: pokemons.add(new Caterpie());break;
+		case 5: pokemons.add(new Geodude());break;
+		case 6: pokemons.add(new Ghastly());break;
+		case 7: pokemons.add(new Hitmonchan());break;
+		case 8: pokemons.add(new Pidgey());break;
+		case 9: pokemons.add(new Pikachu());break;
+		case 10:pokemons.add(new Rattata());break;
 		}
 	}
 	

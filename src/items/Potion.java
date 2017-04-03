@@ -3,7 +3,7 @@ package items;
 import pokemon.Pokemon;
 
 public class Potion {
-	public static final int potionTypesCount = 3;
+	private static final int potionTypesCount = 3;
 	protected int quantity;
 	private int sellsFor;
 	private String description;
@@ -56,5 +56,9 @@ public class Potion {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public static int getPotiontypescount() {
+		return potionTypesCount;
 	}
 }

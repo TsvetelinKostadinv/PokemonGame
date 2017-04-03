@@ -171,7 +171,7 @@ public class Shop {
 			
 			System.out.format(leftAlignFormat, (index + 1), potion.getName(), potion.getDescription(), potion.getSellsFor(), potion.getQuantity());
 		    index++;
-		    if (index < Potion.potionTypesCount) {
+		    if (index < Potion.getPotiontypescount()) {
 		    	System.out.format(".--------.----------------------.---------------------------------------.--------.------------.%n");
 		    }
 		}

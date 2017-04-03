@@ -10,4 +10,5 @@ public interface Renderer {
 	void printMenu();
 	void showPokemon();
 	void printMenuForPokemon(Pokemon pokemon);
+	int getChosen();
 }
