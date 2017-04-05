@@ -26,18 +26,19 @@ public final class  Player {
 	static ConsoleRenderer console = new ConsoleRenderer();
 	
 	private static Scanner input = new Scanner(System.in);
-	public static String name;
+	private static String name;
 	private static int money = 200;
 	
 	private static int numberOfHealingPots = 5;
 	private static int numberOfMaxHPPots = 5;
 	private static int numberOfStrenghtPots = 5;
 	
+	private static int currentOpponent = 1;
+	private static int currentPokemon = 1;
+
 	private static List<Potion> potions = new ArrayList<>();
 	
-	private static List<Pokemon> pokemons = new ArrayList<>();
-	
-	
+	static List<Pokemon> pokemons = new ArrayList<>();
 
 	public static void initPotions()
 	{	
@@ -68,21 +69,20 @@ public final class  Player {
 		System.out.println("Successfully added to your inventory");
 	}
 	
-	
 	public static void choosePokemon(int num)
 	{
 		switch(num)
 		{
-		case 1: pokemons.add(new Squirtle());break;
-		case 2: pokemons.add(new Bulbasour());break;
-		case 3: pokemons.add(new Charmander());break;
-		case 4: pokemons.add(new Caterpie());break;
-		case 5: pokemons.add(new Geodude());break;
-		case 6: pokemons.add(new Ghastly());break;
-		case 7: pokemons.add(new Hitmonchan());break;
-		case 8: pokemons.add(new Pidgey());break;
-		case 9: pokemons.add(new Pikachu());break;
-		case 10:pokemons.add(new Rattata());break;
+			case 1: pokemons.add(new Squirtle());break;
+			case 2: pokemons.add(new Bulbasour());break;
+			case 3: pokemons.add(new Charmander());break;
+			case 4: pokemons.add(new Caterpie());break;
+			case 5: pokemons.add(new Geodude());break;
+			case 6: pokemons.add(new Ghastly());break;
+			case 7: pokemons.add(new Hitmonchan());break;
+			case 8: pokemons.add(new Pidgey());break;
+			case 9: pokemons.add(new Pikachu());break;
+			case 10:pokemons.add(new Rattata());break;
 		}
 	}
 	
@@ -92,8 +92,6 @@ public final class  Player {
 	public static int getMoney() {
 		return money;
 	}
-
-
 
 	public static void setMoney(int money) {
 		Player.money = money;
@@ -115,25 +113,17 @@ public final class  Player {
 		Player.numberOfMaxHPPots = numberOfMaxHPPots;
 	}
 
-
-
 	public static int getNumberOfStrenghtPots() {
 		return numberOfStrenghtPots;
 	}
-
-
 
 	public static void setNumberOfStrenghtPots(int numberOfStrenghtPots) {
 		Player.numberOfStrenghtPots = numberOfStrenghtPots;
 	}
 
-
-
 	public static String getName() {
 		return name;
 	}
-
-
 
 	public static void setName(String name) {
 		Player.name = name;
@@ -143,5 +133,31 @@ public final class  Player {
 		return pokemons;
 	}
 	
+	public static int getLivePokemonCount() {
+		int playerLivePokemonCount = Player.pokemons.size();
+		
+		for (int i = 0; i < Player.pokemons.size(); i++) {
+			if (Player.pokemons.get(i).getHp() <= 0) {
+				playerLivePokemonCount--;
+			}
+		}
+		
+		return playerLivePokemonCount;
+	}
+
+	public static int getCurrentOpponent() {
+		return currentOpponent;
+	}
+
+	public static void setCurrentOpponent(int currentOpponent) {
+		Player.currentOpponent = currentOpponent;
+	}
 	
+	public static int getCurrentPokemon() {
+		return currentPokemon;
+	}
+
+	public static void setCurrentPokemon(int currentPokemon) {
+		Player.currentPokemon = currentPokemon;
+	}
 }
