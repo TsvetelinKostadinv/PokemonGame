@@ -7,6 +7,7 @@ public class GameManager {
 	{
 		console.startGame();
 		NewShop.fillShop();
+		Player.initPotions();
 	}
 	
 	

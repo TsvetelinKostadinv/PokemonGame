@@ -65,6 +65,7 @@ public final class  Player {
 			int quantOfPot = boughtPot.getQuantity();
 			potions.get(3).setQuantity(quantOfPot+1);
 		}
+		System.out.println("Successfully added to your inventory");
 	}
 	
 	

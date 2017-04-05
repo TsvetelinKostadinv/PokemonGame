@@ -8,11 +8,17 @@ public interface Renderer {
 	void askForPlayerName();
 	void printStarterPokemon();
 	void chooseOnePokemon();
+	
 	void printShop();
 	void buyPotion(Potion potion);
-	void printAbilities(Pokemon pokemon);
+	
 	void printMenu();
+	
+	void initPokemonNames();
 	void showPokemon();
+	void showAvailablePokemon();
 	void printMenuForPokemon(Pokemon pokemon);
+	void printAbilities(Pokemon pokemon);
+	
 	int getChosen();
 }

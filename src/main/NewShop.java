@@ -46,6 +46,7 @@ public class NewShop {
 			int quantOfPot = boughtPot.getQuantity();
 			availablePotions.get(3).setQuantity(quantOfPot+1);
 		}
+		System.out.println("Successfully bought from the shop!");
 	}
 	
 	public static List<Potion> getAvailablePots()

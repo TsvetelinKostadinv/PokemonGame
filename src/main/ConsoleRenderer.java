@@ -25,6 +25,7 @@ public class ConsoleRenderer implements Renderer{
 	
 	private static int whereAreWe = inMenu;
 	private static Scanner input = new Scanner(System.in);
+	private boolean named = false;
 
 //	public void main(String args) {
 //		showPokemon();
@@ -96,17 +97,16 @@ public class ConsoleRenderer implements Renderer{
 		
 		int choice;
 		List<Pokemon> pokemons =Player.getPokemons();
-		
-		System.out.println("[0]Exit");
-		for(int i=0;i<pokemons.size();i++)
+		if(!named)
 		{
-			Pokemon currentPokemon = pokemons.get(i);
-			System.out.println("Insert a name for your Pokemon: ");
-			String pokemonName = input.next();
-			currentPokemon.setName(pokemonName);
-			System.out.println("["+(i+1)+"]" + currentPokemon.getName());
+			initPokemonNames();
+			named=true;
 		}
+		
+		
 		do{
+			System.out.println("[0]Exit");
+			showAvailablePokemon();
 			System.out.println("Input the number you choose");
 			choice = input.nextInt();
 			if(choice==0)
@@ -119,7 +119,6 @@ public class ConsoleRenderer implements Renderer{
 			}
 		}while(choice!=0);
 		
-		for(int i=0;i<50;i++) System.out.println("");
 		printMenu();
 	}
 
@@ -159,7 +158,9 @@ public class ConsoleRenderer implements Renderer{
 		switch(choice)
 		{
 		case 0: whereAreWe = inMenu;break;
-		case 1: buyPotion(potionsToPrint.get(1));break;
+		case 1: buyPotion(potionsToPrint.get(0));break;
+		case 2: buyPotion(potionsToPrint.get(1));break;
+		case 3: buyPotion(potionsToPrint.get(2));break;
 		}
 	}
 	
@@ -220,6 +221,30 @@ public class ConsoleRenderer implements Renderer{
 		whereAreWe = inMenu;
 		printMenu();
 		
+		
+	}
+
+	@Override
+	public void initPokemonNames() {
+		List<Pokemon> pokemons = Player.getPokemons();
+		for(int i=0;i<pokemons.size();i++)
+		{
+			Pokemon currentPokemon = pokemons.get(i);
+			System.out.println("Insert a name for your Pokemon: ");
+			String pokemonName = input.next();
+			currentPokemon.setName(pokemonName);
+			System.out.println("["+(i+1)+"]" + currentPokemon.getName());
+		}
+		
+	}
+
+	@Override
+	public void showAvailablePokemon() {
+		List<Pokemon> pokemons = Player.getPokemons();
+		for(int i=0;i<pokemons.size();i++)
+		{
+			System.out.println("["+(i+1)+"]"+pokemons.get(i).getName());
+		}
 		
 	}
 }
