@@ -33,7 +33,6 @@ public class ConsoleRenderer implements Renderer{
 	@Override
 	public void startGame() {
 		askForPlayerName();
-		
 		for(int i=0;i<3;i++)
 		{
 			chooseOnePokemon();
@@ -103,7 +102,7 @@ public class ConsoleRenderer implements Renderer{
 		{
 			Pokemon currentPokemon = pokemons.get(i);
 			System.out.println("Insert a name for your Pokemon: ");
-			String pokemonName = input.nextLine();
+			String pokemonName = input.next();
 			currentPokemon.setName(pokemonName);
 			System.out.println("["+(i+1)+"]" + currentPokemon.getName());
 		}
@@ -114,7 +113,7 @@ public class ConsoleRenderer implements Renderer{
 			{
 				break;
 			}else{
-				Pokemon chosenPokemon = pokemons.get(choice);
+				Pokemon chosenPokemon = pokemons.get(choice-1);
 				chosenPokemon.printInfo();
 				printMenuForPokemon(chosenPokemon);
 			}
@@ -126,6 +125,7 @@ public class ConsoleRenderer implements Renderer{
 
 	@Override
 	public void printMenuForPokemon(Pokemon pokemon) {
+		System.out.println("[0]Exit");
 		System.out.println("[1]View abilities");
 		System.out.println("[2]Change name");
 		int choice = input.nextInt();
@@ -136,6 +136,10 @@ public class ConsoleRenderer implements Renderer{
 		{
 			System.out.print("Insert the new name: ");
 			pokemon.setName(input.next());
+		}else if(choice == 0)
+		{
+			printMenu();
+			whereAreWe = inMenu;
 		}
 	}
 	
@@ -148,7 +152,8 @@ public class ConsoleRenderer implements Renderer{
 		{
 			Potion currentPot = potionsToPrint.get(i);
 			System.out.println("["+(i+1)+"] "+ currentPot.getName()+
-			"("+currentPot.getQuantity()+" available)");
+			"("+currentPot.getQuantity()+" available)"+
+					" costing "+currentPot.getSellsFor()+" pokedolars");
 		}
 		int choice = input.nextInt();
 		switch(choice)
@@ -210,7 +215,11 @@ public class ConsoleRenderer implements Renderer{
 		{
 			Player.setMoney(Player.getMoney()-potion.getSellsFor());
 			Player.addPotion(potion);
+			NewShop.boughtAPot(potion);
 		}
+		whereAreWe = inMenu;
+		printMenu();
+		
 		
 	}
 }

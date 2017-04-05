@@ -28,6 +28,26 @@ public class NewShop {
 		availablePotions.add(StrenghtPotion);
 	}
 	
+	public static void boughtAPot(Potion potion)
+	{
+		if(potion instanceof MaxHPPotion)
+		{
+			Potion boughtPot = availablePotions.get(0);
+			int quantOfPot = boughtPot.getQuantity();
+			availablePotions.get(1).setQuantity(quantOfPot-1);
+		}else if(potion instanceof HealPotion)
+		{
+			Potion boughtPot = availablePotions.get(1);
+			int quantOfPot = boughtPot.getQuantity();
+			availablePotions.get(2).setQuantity(quantOfPot+1);
+		}else if(potion instanceof StrenghtPotion)
+		{
+			Potion boughtPot = availablePotions.get(2);
+			int quantOfPot = boughtPot.getQuantity();
+			availablePotions.get(3).setQuantity(quantOfPot+1);
+		}
+	}
+	
 	public static List<Potion> getAvailablePots()
 	{
 		return availablePotions;

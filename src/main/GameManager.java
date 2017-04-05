@@ -15,7 +15,6 @@ public class GameManager {
 	{
 		GameManager.startGame();
 		
-		System.out.println(Player.getPokemons());
 		console.printMenu();
 	}
 }
