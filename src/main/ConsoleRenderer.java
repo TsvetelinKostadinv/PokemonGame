@@ -24,42 +24,20 @@ public class ConsoleRenderer implements Renderer{
 	private static int chosen;
 	
 	private static int whereAreWe = inMenu;
+	private static Scanner input = new Scanner(System.in);
 
-	public void main(String args) {
-		showPokemon();
-	}
+//	public void main(String args) {
+//		showPokemon();
+//	}
 	
 	@Override
 	public void startGame() {
-		Scanner input = new Scanner(System.in);
-		System.out.println("Hello!");
-		System.out.println("What is your name?");
-		Player.setName(input.nextLine());
+		askForPlayerName();
 		
 		for(int i=0;i<3;i++)
 		{
-			printStarterPokemon();
-			int chosenPokemon = getChosen();
-			System.out.println("Do you choose him?");
-			System.out.println("[1]Yes    [2]No");
-			int choice = input.nextInt();
-			while(choice!=1)
-			{
-				printStarterPokemon();
-				chosenPokemon = getChosen();
-				System.out.println("Do you choose him?");
-				System.out.println("[1]Yes      [2]No");
-				choice = input.nextInt();
-				if(choice==2)
-				{
-					printStarterPokemon();
-				}else{
-					Player.choosePokemon(chosenPokemon);
-				}
-				
-			}
+			chooseOnePokemon();
 		}
-		input.close();
 	}
 
 	@Override
@@ -76,7 +54,6 @@ public class ConsoleRenderer implements Renderer{
 		System.out.println("[10]Rattata");
 		System.out.println("Insert the number of"
 				+ " the pokemon you want to view");
-		Scanner input = new Scanner(System.in);
 		int choice = input.nextInt();
 		setChosen(choice);
 		switch(choice)
@@ -92,12 +69,10 @@ public class ConsoleRenderer implements Renderer{
 		case 9:new Pikachu().printInfo();break;
 		case 10:new Rattata().printInfo();break;
 		}
-		input.close();
 	}
 
 	@Override
 	public void printMenu() {
-		Scanner input = new Scanner(System.in);
 		System.out.println("Hello "+Player.getName());
 		System.out.println("Where do you want to go?");
 		System.out.println("[1] Arena");
@@ -115,13 +90,11 @@ public class ConsoleRenderer implements Renderer{
 			break;
 		default:printMenu();
 		}
-		input.close();
 	}
 
 	@Override
 	public void showPokemon() {
 		
-		Scanner input = new Scanner(System.in);
 		int choice;
 		List<Pokemon> pokemons =Player.getPokemons();
 		
@@ -149,14 +122,12 @@ public class ConsoleRenderer implements Renderer{
 		
 		for(int i=0;i<50;i++) System.out.println("");
 		printMenu();
-		input.close();
 	}
 
 	@Override
 	public void printMenuForPokemon(Pokemon pokemon) {
 		System.out.println("[1]View abilities");
 		System.out.println("[2]Change name");
-		Scanner input = new Scanner(System.in);
 		int choice = input.nextInt();
 		if(choice==1)
 		{
@@ -166,18 +137,24 @@ public class ConsoleRenderer implements Renderer{
 			System.out.print("Insert the new name: ");
 			pokemon.setName(input.next());
 		}
-		input.close();
 	}
 	
 	@Override
 	public void printShop() {
 		List<Potion> potionsToPrint = NewShop.getAvailablePots();
 		System.out.println("You have "+Player.getMoney()+" PokeDollars");
+		System.out.println("[0]Exit");
 		for(int i=0;i<potionsToPrint.size();i++)
 		{
 			Potion currentPot = potionsToPrint.get(i);
-			System.out.println("["+i+"] "+ currentPot.getName()+
+			System.out.println("["+(i+1)+"] "+ currentPot.getName()+
 			"("+currentPot.getQuantity()+" available)");
+		}
+		int choice = input.nextInt();
+		switch(choice)
+		{
+		case 0: whereAreWe = inMenu;break;
+		case 1: buyPotion(potionsToPrint.get(1));break;
 		}
 	}
 	
@@ -194,5 +171,46 @@ public class ConsoleRenderer implements Renderer{
 	@Override
 	public int getChosen(){
 		return chosen;
+	}
+
+	@Override
+	public void askForPlayerName() {
+		System.out.println("Hello!");
+		System.out.println("What is your name?");
+		Player.setName(input.nextLine());
+		
+	}
+
+	@Override
+	public void chooseOnePokemon() {
+
+		int choice;
+		do
+		{
+			printStarterPokemon();
+			int chosenPokemon = getChosen();
+			System.out.println("Do you choose him?");
+			System.out.println("[1]Yes      [2]No");
+			choice = input.nextInt();
+			if(choice==2)
+			{
+				printStarterPokemon();
+			}else{
+				Player.choosePokemon(chosenPokemon);
+				System.out.println("Successufully added a pokemon");
+			}
+			
+		}while(choice!=1);
+		
+	}
+
+	@Override
+	public void buyPotion(Potion potion) {
+		if(Player.getMoney()>potion.getSellsFor())
+		{
+			Player.setMoney(Player.getMoney()-potion.getSellsFor());
+			Player.addPotion(potion);
+		}
+		
 	}
 }

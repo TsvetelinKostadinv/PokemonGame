@@ -47,6 +47,25 @@ public final class  Player {
 		potions.add(new StrenghtPotion(numberOfStrenghtPots));
 	}
 	
+	public static void addPotion(Potion potion)
+	{
+		if(potion instanceof HealPotion)
+		{
+			Potion boughtPot = potions.get(1);
+			int quantOfPot = boughtPot.getQuantity();
+			boughtPot.setQuantity(quantOfPot+1);
+		}else if(potion instanceof MaxHPPotion)
+		{
+			Potion boughtPot = potions.get(2);
+			int quantOfPot = boughtPot.getQuantity();
+			boughtPot.setQuantity(quantOfPot+1);
+		}else if(potion instanceof StrenghtPotion)
+		{
+			Potion boughtPot = potions.get(3);
+			int quantOfPot = boughtPot.getQuantity();
+			boughtPot.setQuantity(quantOfPot+1);
+		}
+	}
 	
 	
 	public static void choosePokemon(int num)

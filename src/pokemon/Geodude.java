@@ -6,7 +6,7 @@ public class Geodude extends Pokemon implements AttacksEarth{
 		super(maxHP, attackDmg, "rock", "ground");
 	}
 	public Geodude() {
-		super(100, 30, "rock", "ground");
+		super(100, 30, "rock", "ground", "Geodude");
 	}
 	
 	@Override

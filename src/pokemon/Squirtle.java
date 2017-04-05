@@ -6,7 +6,7 @@ public class Squirtle extends Pokemon implements AttacksWater{
 		super(maxHP, attackDmg, "water", "water");
 	}
 	public Squirtle() {
-		super(100, 30, "water", "water");
+		super(100, 30, "water", "water", "Squirtle");
 	}
 	
 	@Override

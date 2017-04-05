@@ -6,7 +6,7 @@ public class Ghastly extends Pokemon implements AttacksGhost{
 		super(maxHP, attackDmg, "ghost", "poison");
 	}
 	public Ghastly() {
-		super(100, 30, "ghost", "poison");
+		super(100, 30, "ghost", "poison", "Ghastly");
 	}
 	
 	@Override

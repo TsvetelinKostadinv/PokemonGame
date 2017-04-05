@@ -7,7 +7,7 @@ public class Charmander extends Pokemon implements AttacksFire{
 	}
 	
 	public Charmander() {
-		super(70, 40, "fire", "fire");
+		super(70, 40, "fire", "fire", "Charmander");
 	}
 	@Override
 	public int hyperFang()
