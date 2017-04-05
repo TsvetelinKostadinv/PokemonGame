@@ -2,11 +2,11 @@ package pokemon;
 
 public class Caterpie extends Pokemon implements AttacksGrass{
 
-	public Caterpie(int maxHP, int attackDmg, String name) {
-		super(maxHP, attackDmg, "bug", "bug");
+	public Caterpie(String name) {
+		super(maxHP, attackDmg, "bug", "bug", name);
 	}
 	public Caterpie() {
-		super(100, 30, "bug", "bug");
+		super(100, 30, "bug", "bug", "Caterpie");
 	}
 	@Override
 	public int hyperFang()
