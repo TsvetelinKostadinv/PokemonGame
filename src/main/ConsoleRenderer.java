@@ -24,6 +24,11 @@ public class ConsoleRenderer implements Renderer{
 	private static int chosen;
 	
 	private static int whereAreWe = inMenu;
+
+	public void main(String args) {
+		showPokemon();
+	}
+	
 	@Override
 	public void startGame() {
 		Scanner input = new Scanner(System.in);
@@ -124,6 +129,9 @@ public class ConsoleRenderer implements Renderer{
 		for(int i=0;i<pokemons.size();i++)
 		{
 			Pokemon currentPokemon = pokemons.get(i);
+			System.out.println("Insert a name for your Pokemon: ");
+			String pokemonName = input.nextLine();
+			currentPokemon.setName(pokemonName);
 			System.out.println("["+(i+1)+"]" + currentPokemon.getName());
 		}
 		do{
@@ -179,10 +187,10 @@ public class ConsoleRenderer implements Renderer{
 		
 	}
 
-	
 	public void setChosen(int n) {
 		chosen=n;
 	}
+	
 	@Override
 	public int getChosen(){
 		return chosen;
