@@ -3,9 +3,9 @@ package pokemon;
 import java.util.Scanner;
 
 public class Pokemon{
-	private int maxHP;
+	protected static int maxHP;
 	private int hp;
-	private int attackDmg;
+	protected static int attackDmg;
 	private String name;
 	private String primaryAttr;
 	private String secondaryAttr;
@@ -13,18 +13,30 @@ public class Pokemon{
 	Scanner input = new Scanner(System.in);
 	
 	
+	public Pokemon(int maxHP, int attackDmg, String primaryAttr, String secondaryAttr, String name) {
+		super();
+		this.maxHP = maxHP;
+		this.hp = maxHP;
+		this.attackDmg = attackDmg;
+		//commented because we don't want the opponents to name their pokemon
+		//System.out.println("Insert a name for your Pokemon: ");
+		//this.name = input.nextLine();
+		this.name = name;
+		this.primaryAttr = primaryAttr;
+		this.secondaryAttr = secondaryAttr;
+	}
+	
 	public Pokemon(int maxHP, int attackDmg, String primaryAttr, String secondaryAttr) {
 		super();
 		this.maxHP = maxHP;
 		this.hp = maxHP;
 		this.attackDmg = attackDmg;
-		System.out.println("Insert a name for your Pokemon: ");
-		this.name = input.nextLine();
+		//commented because we don't want the opponents to name their pokemon
+		//System.out.println("Insert a name for your Pokemon: ");
+		//this.name = input.nextLine();
 		this.primaryAttr = primaryAttr;
 		this.secondaryAttr = secondaryAttr;
 	}
-	
-
 
 	public void printInfo()
 	{
