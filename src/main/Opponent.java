@@ -27,18 +27,21 @@ public final class Opponent {
 	static ConsoleRenderer console = new ConsoleRenderer();
 	
 	private static Scanner input = new Scanner(System.in);
-	private static String opponentName;
+	private static String[] opponentName = new String[5];
+	private static String[] openingWords = new String[5];
 	private static int opponentMoney = 200;
 	
-	private static int numberOfHealingPots = 5;
-	private static int numberOfMaxHPPots = 5;
-	private static int numberOfStrenghtPots = 5;
+	private static int numberOfHealingPots = 1;
+	private static int numberOfMaxHPPots = 1;
+	private static int numberOfStrenghtPots = 1;
 	
+	private static int currentOpponentPokemon = 1;
+
 	private static List<Potion> potions = new ArrayList<>();
 	
 	private static List<Pokemon> pokemons = new ArrayList<>();
 	
-	private static List<List<Pokemon>> opponents = new ArrayList<List<Pokemon>>(OPPONENT_COUNT);
+	static List<List<Pokemon>> opponents = new ArrayList<List<Pokemon>>(OPPONENT_COUNT);
 	
 	public static void main(String[] args) {
 		initOpponents();
@@ -66,17 +69,28 @@ public final class Opponent {
 		pokemons.add(new Caterpie());
 		
 		opponents.add(pokemons.subList(0, 3));
+		Opponent.setOpponentName("Bill", 1);
+		Opponent.setOpeningWords("Are you ready to get beaten up punk???", 1);
 		
 		opponents.add(pokemons.subList(3, 6));
+		Opponent.setOpponentName("Gill", 2);
+		Opponent.setOpeningWords("Huh, you beat Bill but you won't beat me chump!!!", 1);
 		
 		opponents.add(pokemons.subList(6, 9));
+		Opponent.setOpponentName("Kill", 3);
+		Opponent.setOpeningWords("You defeated my brothers, PREPARE TO DIE TO KILL!!!", 1);
 		
 		opponents.add(pokemons.subList(9, 12));
+		Opponent.setOpponentName("Hill", 4);
+		Opponent.setOpeningWords("You climbed to here but you won't be over to climb over me - Hill!!!", 1);
 		
 		opponents.add(pokemons.subList(12, 15));
+		Opponent.setOpponentName("Till", 5);
+		Opponent.setOpeningWords("Nice job friend. Gotcha, you are no friend of mine. LET'S D-D-DDDUEL.", 1);
+		
 		
 		for (int i = 0; i < opponents.size(); i++) {
-			System.out.println("Opponent " + (i+1) + " pokemon:");
+			System.out.println("Opponent " + Opponent.getOpponentName(i+1) + " pokemon:");
 			for(int j = 0; j < opponents.get(i).size(); j++) {
 				Pokemon currentPokemon = opponents.get(i).get(j);//pokemons.get(i);
 				System.out.println("["+(j+1)+"]" + currentPokemon.getName());
@@ -128,17 +142,45 @@ public final class Opponent {
 		Opponent.numberOfStrenghtPots = numberOfStrenghtPots;
 	}
 
-	public static String getOpponentName() {
-		return opponentName;
-	}
-
-	public static void setOpponentName(String opponentName) {
-		Opponent.opponentName = opponentName;
-	}
-
 	public static List<Pokemon> getPokemons() {
 		return pokemons;
 	}
 	
+	public static int getLivePokemonCount(int opponentNumber) {
+
+		int opponentLivePokemonCount = Opponent.opponents.get(opponentNumber - 1).size();
+		
+		for(int j = 0; j < opponents.get(opponentNumber - 1).size(); j++) {
+			if (opponents.get(opponentNumber - 1).get(j).getHp() <= 0 ) {
+				opponentLivePokemonCount--;
+			}	
+		}
+		
+		return opponentLivePokemonCount;
+	}
+
+	public static String getOpponentName(int opponentNumber) {
+		return opponentName[opponentNumber - 1];
+	}
+
+	public static void setOpponentName(String currentOpponentName, int opponentNumber) {
+		Opponent.opponentName[opponentNumber - 1] = currentOpponentName;
+	}
+	
+	public static String getOpeningWords(int opponentNumber) {
+		return openingWords[opponentNumber - 1];
+	}
+
+	public static void setOpeningWords(String currentOpeningWords, int opponentNumber) {
+		Opponent.openingWords[opponentNumber - 1] = currentOpeningWords;
+	}
+	
+	public static int getCurrentOpponentPokemon() {
+		return currentOpponentPokemon;
+	}
+
+	public static void setCurrentOpponentPokemon(int currentOpponentPokemon) {
+		Opponent.currentOpponentPokemon = currentOpponentPokemon;
+	}
 	
 }
