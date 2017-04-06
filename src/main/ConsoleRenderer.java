@@ -128,7 +128,7 @@ public class ConsoleRenderer implements Renderer{
 		int choice = input.nextInt();
 		if(choice==1)
 		{
-			pokemon.printAbilities();
+			printAbilities(pokemon);
 		}else if(choice == 2)
 		{
 			System.out.print("Insert the new name: ");
@@ -158,14 +158,17 @@ public class ConsoleRenderer implements Renderer{
 		case 1: buyPotion(potionsToPrint.get(0));break;
 		case 2: buyPotion(potionsToPrint.get(1));break;
 		case 3: buyPotion(potionsToPrint.get(2));break;
+		default: System.out.println("No such choice");printShop();
 		}
 	}
 	
 	@Override
 	public void printAbilities(Pokemon pokemon) {
+		System.out.println("---------");
+		
 		pokemon.printAbilities();
-		System.out.println("");
-		System.out.println("");
+		
+		System.out.println("---------");
 	}
 
 	public void setChosen(int n) {
