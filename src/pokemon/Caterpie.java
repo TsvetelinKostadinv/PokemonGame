@@ -8,18 +8,18 @@ public class Caterpie extends Pokemon implements AttacksGrass{
 	public Caterpie() {
 		super(100, 30, "bug", "bug", "Caterpie");
 	}
-	//@Override
+	@Override
 	public int hyperFang()
 	{
 		System.out.println(this.getName()+" used Hyper Fang!");
 		return this.getAttackDmg();
 	}
-	//@Override
+	@Override
 	public int tackle() {
 		System.out.println(this.getName()+" used Tackle!");
 		return this.getAttackDmg()/2;
 	}
-	//@Override
+	@Override
 	public int leechLife()
 	{
 		System.out.println(this.getName()+"(of type Caterpie) "
@@ -31,14 +31,14 @@ public class Caterpie extends Pokemon implements AttacksGrass{
 		}
 		return this.getAttackDmg();
 	}
-	//@Override
+	@Override
 	public int razorLeaf() {
 		System.out.println(this.getName()+" used Razor Leaf");
 		return this.getAttackDmg()*2;
 	}
 	
-	//@Override
-	public static void printAbilities()
+	@Override
+	public void printAbilities()
 	{
 		System.out.println("[1]Hyper Fang");
 		System.out.println("[2]Tackle");

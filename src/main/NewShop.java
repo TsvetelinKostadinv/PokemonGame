@@ -34,17 +34,17 @@ public class NewShop {
 		{
 			Potion boughtPot = availablePotions.get(0);
 			int quantOfPot = boughtPot.getQuantity();
-			availablePotions.get(1).setQuantity(quantOfPot-1);
+			availablePotions.get(0).setQuantity(quantOfPot-1);
 		}else if(potion instanceof HealPotion)
 		{
 			Potion boughtPot = availablePotions.get(1);
 			int quantOfPot = boughtPot.getQuantity();
-			availablePotions.get(2).setQuantity(quantOfPot+1);
+			availablePotions.get(1).setQuantity(quantOfPot+1);
 		}else if(potion instanceof StrenghtPotion)
 		{
 			Potion boughtPot = availablePotions.get(2);
 			int quantOfPot = boughtPot.getQuantity();
-			availablePotions.get(3).setQuantity(quantOfPot+1);
+			availablePotions.get(2).setQuantity(quantOfPot+1);
 		}
 		System.out.println("Successfully bought from the shop!");
 	}

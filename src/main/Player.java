@@ -56,17 +56,17 @@ public final class  Player {
 		{
 			Potion boughtPot = potions.get(0);
 			int quantOfPot = boughtPot.getQuantity();
-			potions.get(1).setQuantity(quantOfPot+1);
+			potions.get(0).setQuantity(quantOfPot+1);
 		}else if(potion instanceof MaxHPPotion)
 		{
 			Potion boughtPot = potions.get(1);
 			int quantOfPot = boughtPot.getQuantity();
-			potions.get(2).setQuantity(quantOfPot+1);
+			potions.get(1).setQuantity(quantOfPot+1);
 		}else if(potion instanceof StrenghtPotion)
 		{
 			Potion boughtPot = potions.get(2);
 			int quantOfPot = boughtPot.getQuantity();
-			potions.get(3).setQuantity(quantOfPot+1);
+			potions.get(2).setQuantity(quantOfPot+1);
 		}
 		System.out.println("Successfully added to your inventory");
 	}

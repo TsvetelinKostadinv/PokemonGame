@@ -17,19 +17,10 @@ import pokemon.Rattata;
 import pokemon.Squirtle;
 
 public class ConsoleRenderer implements Renderer{
-	private static final int inMenu = 0;
-	private static final int inShop = 0;
-	private static final int inArena = 0;
-	private static final int inBattle = 0;
 	private static int chosen;
 	
-	private static int whereAreWe = inMenu;
 	private static Scanner input = new Scanner(System.in);
 	private boolean named = false;
-
-//	public void main(String args) {
-//		showPokemon();
-//	}
 	
 	@Override
 	public void startGame() {
@@ -68,6 +59,8 @@ public class ConsoleRenderer implements Renderer{
 		case 8:new Pidgey().printInfo();break;
 		case 9:new Pikachu().printInfo();break;
 		case 10:new Rattata().printInfo();break;
+		default: System.out.println("Insert a number from 1 to 10");
+			printStarterPokemon();
 		}
 	}
 
@@ -84,12 +77,10 @@ public class ConsoleRenderer implements Renderer{
 		{
 		case 1://Arena, THIS IS SPARTAAAA;
 			BattleArena.handleBattleInTheArena();
-			whereAreWe = inArena;
 			printMenu(); //we return to the menu after the battle has concluded
 			break;
 		case 2: 
 			printShop();
-			whereAreWe = inShop;
 			break;
 		case 3: 
 			showPokemon();
@@ -145,7 +136,6 @@ public class ConsoleRenderer implements Renderer{
 		}else if(choice == 0)
 		{
 			printMenu();
-			whereAreWe = inMenu;
 		}
 	}
 	
@@ -164,7 +154,7 @@ public class ConsoleRenderer implements Renderer{
 		int choice = input.nextInt();
 		switch(choice)
 		{
-		case 0: whereAreWe = inMenu;break;
+		case 0: printMenu();break;
 		case 1: buyPotion(potionsToPrint.get(0));break;
 		case 2: buyPotion(potionsToPrint.get(1));break;
 		case 3: buyPotion(potionsToPrint.get(2));break;
@@ -174,7 +164,8 @@ public class ConsoleRenderer implements Renderer{
 	@Override
 	public void printAbilities(Pokemon pokemon) {
 		pokemon.printAbilities();
-		
+		System.out.println("");
+		System.out.println("");
 	}
 
 	public void setChosen(int n) {
@@ -196,25 +187,24 @@ public class ConsoleRenderer implements Renderer{
 
 	@Override
 	public void chooseOnePokemon() {
-
-		int choice;
+		int choice=0,chosenPokemon;
 		do
 		{
+			chosenPokemon=0;
 			printStarterPokemon();
-			int chosenPokemon = getChosen();
+			chosenPokemon = getChosen();
 			System.out.println("Do you choose him?");
 			System.out.println("[1]Yes      [2]No");
 			choice = input.nextInt();
 			if(choice==2)
 			{
-				printStarterPokemon();
-			}else{
-				Player.choosePokemon(chosenPokemon);
-				System.out.println("Successufully added a pokemon");
+				chooseOnePokemon();
+			}else if(choice!=1){
+				System.out.println("Choose Yes or No!");
 			}
-			
 		}while(choice!=1);
-		
+		Player.choosePokemon(chosenPokemon);
+		System.out.println("Successufully added a pokemon");
 	}
 
 	@Override
@@ -225,10 +215,7 @@ public class ConsoleRenderer implements Renderer{
 			Player.addPotion(potion);
 			NewShop.boughtAPot(potion);
 		}
-		whereAreWe = inMenu;
 		printMenu();
-		
-		
 	}
 
 	@Override
