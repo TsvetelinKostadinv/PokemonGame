@@ -83,6 +83,8 @@ public class ConsoleRenderer implements Renderer{
 		switch(choice)
 		{
 		case 1://Arena, THIS IS SPARTAAAA;
+			BattleArena.handleBattleInTheArena();
+			whereAreWe = inArena;
 			break;
 		case 2: printShop();whereAreWe = inShop;
 			break;
@@ -245,6 +247,5 @@ public class ConsoleRenderer implements Renderer{
 		{
 			System.out.println("["+(i+1)+"]"+pokemons.get(i).getName());
 		}
-		
 	}
 }
