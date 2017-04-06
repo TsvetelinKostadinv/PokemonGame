@@ -35,6 +35,8 @@ public final class  Player {
 	
 	private static int currentOpponent = 1;
 	private static int currentPokemon = 1;
+	
+	private static boolean hasPlayerForfeited = false;
 
 	private static List<Potion> potions = new ArrayList<>();
 	
@@ -159,5 +161,13 @@ public final class  Player {
 
 	public static void setCurrentPokemon(int currentPokemon) {
 		Player.currentPokemon = currentPokemon;
+	}
+
+	public static boolean getHasPlayerForfeited() {
+		return hasPlayerForfeited;
+	}
+
+	public static void setHasPlayerForfeited(boolean hasPlayerForfeited) {
+		Player.hasPlayerForfeited = hasPlayerForfeited;
 	}
 }
