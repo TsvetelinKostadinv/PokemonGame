@@ -85,12 +85,17 @@ public class ConsoleRenderer implements Renderer{
 		case 1://Arena, THIS IS SPARTAAAA;
 			BattleArena.handleBattleInTheArena();
 			whereAreWe = inArena;
+			printMenu(); //we return to the menu after the battle has concluded
 			break;
-		case 2: printShop();whereAreWe = inShop;
+		case 2: 
+			printShop();
+			whereAreWe = inShop;
 			break;
-		case 3: showPokemon();
+		case 3: 
+			showPokemon();
 			break;
-		default:printMenu();
+		default:
+			printMenu();
 		}
 	}
 
