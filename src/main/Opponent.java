@@ -27,9 +27,9 @@ public final class Opponent {
 	static ConsoleRenderer console = new ConsoleRenderer();
 	
 	private static Scanner input = new Scanner(System.in);
-	private static String[] opponentName = new String[5];
-	private static String[] openingWords = new String[5];
-	private static int opponentMoney = 200;
+	private static String[] opponentName = new String[OPPONENT_COUNT];
+	private static String[] openingWords = new String[OPPONENT_COUNT];
+	private static int[] opponentMoney = new int[OPPONENT_COUNT];
 	
 	private static int numberOfHealingPots = 1;
 	private static int numberOfMaxHPPots = 1;
@@ -70,23 +70,28 @@ public final class Opponent {
 		
 		opponents.add(pokemons.subList(0, 3));
 		Opponent.setOpponentName("Bill", 1);
+		Opponent.setOpponentMoney(200, 1);
 		Opponent.setOpeningWords("Are you ready to get beaten up punk???", 1);
 		
 		opponents.add(pokemons.subList(3, 6));
 		Opponent.setOpponentName("Gill", 2);
+		Opponent.setOpponentMoney(300, 2);
 		Opponent.setOpeningWords("Huh, you beat Bill but you won't beat me chump!!!", 1);
 		
 		opponents.add(pokemons.subList(6, 9));
 		Opponent.setOpponentName("Kill", 3);
+		Opponent.setOpponentMoney(400, 3);
 		Opponent.setOpeningWords("You defeated my brothers, PREPARE TO DIE TO KILL!!!", 1);
 		
 		opponents.add(pokemons.subList(9, 12));
 		Opponent.setOpponentName("Hill", 4);
+		Opponent.setOpponentMoney(500, 4);
 		Opponent.setOpeningWords("You climbed to here but you won't be over to climb over me - Hill!!!", 1);
 		
 		opponents.add(pokemons.subList(12, 15));
 		Opponent.setOpponentName("Till", 5);
-		Opponent.setOpeningWords("Nice job friend. Gotcha, you are no friend of mine. LET'S D-D-DDDUEL.", 1);
+		Opponent.setOpponentMoney(1000, 5);
+		Opponent.setOpeningWords("Nice job coming so far friend... Gotcha, you are no friend of mine. LET'S D-D-DDDUEL.", 1);
 		
 		
 		for (int i = 0; i < opponents.size(); i++) {
@@ -110,12 +115,13 @@ public final class Opponent {
 	
 	private Opponent(){}
 
-	public static int getOpponentMoney() {
-		return opponentMoney;
+	
+	public static int getOpponentMoney(int opponentNumber) {
+		return opponentMoney[opponentNumber - 1];
 	}
 
-	public static void setOpponentMoney(int opponentMoney) {
-		Opponent.opponentMoney = opponentMoney;
+	public static void setOpponentMoney(int currentOpponentMoney, int opponentNumber) {
+		Opponent.opponentMoney[opponentNumber - 1] = currentOpponentMoney;
 	}
 	
 	public static int getNumberOfHealingPots() {
