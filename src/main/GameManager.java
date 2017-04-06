@@ -8,9 +8,10 @@ public class GameManager {
 		console.startGame();
 		NewShop.fillShop();
 		Player.initPotions();
+		
+		Opponent.initOpponents();
+		Opponent.initPotions();
 	}
-	
-	
 	
 	public static void main(String[] args)
 	{
