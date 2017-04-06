@@ -159,6 +159,10 @@ public class BattleArena {
 				(pokemonChoice != 3 || (pokemonChoice == 3 && Player.pokemons.get(2).getHp() <= 0)) &&
 				pokemonChoice != 0);
 		
+		if (pokemonChoice == 0) {
+			decideHowToProceedWithTurn();
+		}
+		
 		Player.setCurrentPokemon(pokemonChoice);
 		System.out.println("You switched to " + Player.pokemons.get(Player.getCurrentPokemon() - 1).getName());
 	}
