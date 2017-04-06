@@ -34,8 +34,49 @@ public class BattleArena {
 			handleOurTurn();
 			handleOpponentsTurn();
 		}
+		
+		outputMatchConclusion();
 	}
 	
+	private static void outputMatchConclusion() {
+		if (Player.getLivePokemonCount() > 0 && Opponent.getLivePokemonCount(Player.getCurrentOpponent()) < 0 && !Player.getHasPlayerForfeited()) {
+			System.out.println("You won the match.");
+			outputUpcomingOpponentInfo();
+			awardMoneyToThePlayer();
+			
+			restoreAllPokemonToFullHealth();
+			moveUpToNextOpponent();
+		}
+
+	}
+
+	private static void restoreAllPokemonToFullHealth() {
+		System.out.println("Nurse Joy healed all your pokemon back to full health.");
+		for (int i = 0; i < Player.pokemons.size(); i++) {
+			Player.pokemons.get(i).heal(Player.pokemons.get(i).getMaxHP() - Player.pokemons.get(i).getHp());
+		}
+	}
+
+	private static void moveUpToNextOpponent() {
+		if (Player.getCurrentOpponent() < Opponent.OPPONENT_COUNT) {
+			Player.setCurrentOpponent(Player.getCurrentOpponent() + 1);
+			Opponent.setCurrentOpponentPokemon(1); //starting pokemon
+		}
+	}
+
+	private static void awardMoneyToThePlayer() {
+		System.out.println("You won " + Opponent.getOpponentMoney(Player.getCurrentOpponent()) + "PokeDollars");
+		Player.setMoney(Player.getMoney() + Opponent.getOpponentMoney(Player.getCurrentOpponent()));
+	}
+
+	private static void outputUpcomingOpponentInfo() {
+		if (Player.getCurrentOpponent() < Opponent.OPPONENT_COUNT) {
+			System.out.println("You can move up to the next opponent - " + Opponent.getOpponentName(Player.getCurrentOpponent() + 1));
+		} else if (Player.getCurrentOpponent() == Opponent.OPPONENT_COUNT) {
+			System.out.println("You beat all opponents and won the tournament! CONGRATULATIONS :D!");
+		}
+	}
+
 	private static void outputBattleScene() {
 		System.out.printf("%s: %s - HP[%d/%d] \n \n", Player.getName(), Player.pokemons.get(Player.getCurrentPokemon() - 1).getName(), Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp(), Player.pokemons.get(Player.getCurrentPokemon() - 1).getMaxHP());
 		System.out.printf("%s: %s - HP[%d/%d] \n \n", Opponent.getOpponentName(Player.getCurrentOpponent()), Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getName(), Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getHp(), Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getMaxHP());
@@ -44,7 +85,7 @@ public class BattleArena {
 
 	private static void handleOpponentsTurn() {
 		//TODO the opponent has more tactical knowledge
-		if (Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0) {
+		if (Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0 && !Player.getHasPlayerForfeited()) {
 			int opponentAttackChoice = 1;
 			attackPlayerPokemon(opponentAttackChoice); //TODO random(1, 4)
 		}
@@ -123,7 +164,8 @@ public class BattleArena {
 
 	private static void handleForfeitChoice(char forfeitChoice) {
 		if (forfeitChoice == 'y') {
-			System.out.println("Game over!");
+			System.out.println("You forfeited the match!");
+			Player.setHasPlayerForfeited(true);
 			//TODO
 		} else {
 			System.out.println("You decided not to forfeit. That's the spirit!");
@@ -282,9 +324,10 @@ public class BattleArena {
 	}
 
 	private static boolean hasSomeoneWonTheMatch() {
-		if (Player.getLivePokemonCount() > 0 && Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0) {
+		if (Player.getLivePokemonCount() > 0 && Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0 && !Player.getHasPlayerForfeited()) {
 			return false;
 		}
+
 		return true;
 	}
 
