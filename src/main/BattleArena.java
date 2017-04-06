@@ -26,19 +26,46 @@ public class BattleArena {
 		handleBattleInTheArena();
 	}
 	
-	private static void handleBattleInTheArena() {
+	static void handleBattleInTheArena() {
 		outputBattleStartingInformation();
 		
-	
-		
-		//while(!hasSomeoneWonTheMatch()) {
+		while(!hasSomeoneWonTheMatch()) {
+			outputBattleScene();
 			handleOurTurn();
 			handleOpponentsTurn();
-		//}
+		}
 	}
 	
+	private static void outputBattleScene() {
+		System.out.printf("%s: %s - HP[%d/%d] \n \n", Player.getName(), Player.pokemons.get(Player.getCurrentPokemon() - 1).getName(), Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp(), Player.pokemons.get(Player.getCurrentPokemon() - 1).getMaxHP());
+		System.out.printf("%s: %s - HP[%d/%d] \n \n", Opponent.getOpponentName(Player.getCurrentOpponent()), Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getName(), Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getHp(), Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getMaxHP());
+		
+	}
+
 	private static void handleOpponentsTurn() {
-		//TODO handle the opponents turn
+		//TODO the opponent has more tactical knowledge
+		if (Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0) {
+			int opponentAttackChoice = 1;
+			attackPlayerPokemon(opponentAttackChoice); //TODO random(1, 4)
+		}
+	}
+
+	private static void attackPlayerPokemon(int opponentAttackChoice) {
+		//TODO this might all not work
+		Pokemon currentPlayerPokemon = Player.pokemons.get(Player.getCurrentPokemon() - 1);
+		int currentPlayerPokemonHP = currentPlayerPokemon.getHp();
+		int opponentCurrentPokemonDamage = currentPlayerPokemon.getAttackDmg();
+		int playerPokemonHPAfterOutAttack = currentPlayerPokemonHP - opponentCurrentPokemonDamage;
+		currentPlayerPokemon.takeDamage(opponentCurrentPokemonDamage);
+		
+		currentPlayerPokemonHP = currentPlayerPokemon.getHp();
+		
+		System.out.println(Opponent.getOpponentName(Player.getCurrentOpponent()) + " attacked your pokemon for " + opponentCurrentPokemonDamage + " damage.");
+		if (currentPlayerPokemonHP <= 0) {
+			System.out.println("Your pokemon fainted...");
+		} else {
+			System.out.println("Your pokemon has " + currentPlayerPokemonHP + "HP left...");
+		}
 	}
 
 	private static void outputTheBeginningOfOurTurn() {
@@ -105,14 +132,35 @@ public class BattleArena {
 	}
 
 	private static void chooseFromPokemonOptions() {
+		int pokemonChoice;
+		
 		//The player has no pokemon attached to him Player.pokemons.size() = 0
 		for (int i = 0; i < Player.pokemons.size(); i++) {
 			if (Player.getCurrentPokemon() == i + 1) {
-				System.out.println("->[" + (i + 1) + "] " + Player.pokemons.get(i).getName());
+				System.out.println("->[" + (i + 1) + "] " + Player.pokemons.get(i).getName() + " HP:" + Player.pokemons.get(i).getHp());
 			} else {
-				System.out.println("  [" + (i + 1) + "] " + Player.pokemons.get(i).getName());
-			}
+				System.out.println("  [" + (i + 1) + "] " + Player.pokemons.get(i).getName() + " HP:" + Player.pokemons.get(i).getHp());
+			} 
 		}
+		
+		System.out.println("Select a live pokemon to switch to (1-3) or exit (0)");
+		do {
+			pokemonChoice = input.nextInt();
+			
+			if ((pokemonChoice != 1 || (pokemonChoice == 1 && Player.pokemons.get(0).getHp() <= 0)) && 
+					(pokemonChoice != 2 || (pokemonChoice == 2 && Player.pokemons.get(1).getHp() <= 0)) &&
+					(pokemonChoice != 3 || (pokemonChoice == 3 && Player.pokemons.get(2).getHp() <= 0)) &&
+					pokemonChoice != 0) {
+				System.out.println("You either selected a non-existent pokemon or a fainted one.");
+			}
+			
+		} while ((pokemonChoice != 1 || (pokemonChoice == 1 && Player.pokemons.get(0).getHp() <= 0)) && 
+				(pokemonChoice != 2 || (pokemonChoice == 2 && Player.pokemons.get(1).getHp() <= 0)) &&
+				(pokemonChoice != 3 || (pokemonChoice == 3 && Player.pokemons.get(2).getHp() <= 0)) &&
+				pokemonChoice != 0);
+		
+		Player.setCurrentPokemon(pokemonChoice);
+		System.out.println("You switched to " + Player.pokemons.get(Player.getCurrentPokemon() - 1).getName());
 	}
 
 	private static void chooseFromItemOptions() {
@@ -181,8 +229,9 @@ public class BattleArena {
 
 	private static void chooseFromAttackOptions() {
 		//TODO test if it works in the ConsoleRendered
-		//Player.pokemons.get(Player.getCurrentPokemon() - 1).printAbilities();
-		Caterpie.printAbilities();
+		System.out.println(Player.pokemons.get(Player.getCurrentPokemon() - 1).getName() + ": ");
+		Player.pokemons.get(Player.getCurrentPokemon() - 1).printAbilities();
+		//Caterpie.printAbilities();
 		System.out.println("Choose and ability (1 - 4) to attack with or go back (0): ");
 		int attackChoice;
 		
@@ -204,12 +253,12 @@ public class BattleArena {
 
 	private static void attackOpponentPokemon(int attackChoice) {
 		//TODO this might all not work
-		Pokemon currentOpponentPokemon = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon());
+		Pokemon currentOpponentPokemon = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1); //-1?
 		
 		int currentOpponentPokemonHP = currentOpponentPokemon.getHp();
 		int playerCurrentPokemonDamage = Player.pokemons.get(Player.getCurrentPokemon() - 1).getAttackDmg();
 		int opponentPokemonHPAfterOurAttack = currentOpponentPokemonHP - playerCurrentPokemonDamage;
-		currentOpponentPokemon.takeDamage(opponentPokemonHPAfterOurAttack);
+		currentOpponentPokemon.takeDamage(playerCurrentPokemonDamage/*opponentPokemonHPAfterOurAttack*/);
 		
 		currentOpponentPokemonHP = currentOpponentPokemon.getHp();
 		
