@@ -12,7 +12,6 @@ public class Pokemon{
 	
 	Scanner input = new Scanner(System.in);
 	
-	
 	public Pokemon(int maxHP, int attackDmg, String primaryAttr, String secondaryAttr, String name) {
 		super();
 		this.maxHP = maxHP;
@@ -54,7 +53,11 @@ public class Pokemon{
 	}
 	public void heal(int amount)
 	{
-		hp+=amount;
+		if (hp + amount >= maxHP) {
+			hp = maxHP;
+		} else {
+			hp+=amount;
+		}
 	}
 	
 	public int getMaxHP() {
@@ -89,12 +92,7 @@ public class Pokemon{
 		return secondaryAttr;
 	}
 
-
-
-	public void printAbilities() {
+	public static void printAbilities() {
 		System.out.println("Here go the abilities");
-		
 	}
-
-
 }
