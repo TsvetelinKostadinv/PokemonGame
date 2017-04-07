@@ -123,11 +123,14 @@ public class BattleArena {
 	private static void handleOpponentsTurn() {
 		//TODO the opponent has more tactical knowledge
 		if (Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0 && !Player.getHasPlayerForfeited()) {
-			boolean doesTheOpponentHaveToSwitchHisPokemon = isTheOpponentsCurrentPokemonAlive();
+			boolean doesTheOpponentHaveToSwitchHisPokemon = isTheOpponentsCurrentPokemonFainted();
 			handleOpponentPokemonSwitching(doesTheOpponentHaveToSwitchHisPokemon);
 			
-			int opponentAttackChoice = 1;
-			attackPlayerPokemon(opponentAttackChoice); //TODO random(1, 4)
+			if (!doesTheOpponentHaveToSwitchHisPokemon) {
+				int opponentAttackChoice = 1;
+				attackPlayerPokemon(opponentAttackChoice); //TODO random(1, 4)
+			
+			}
 		}
 	}
 
@@ -135,6 +138,8 @@ public class BattleArena {
 			boolean doesTheOpponentHaveToSwitchHisPokemon) {
 		
 		boolean hasTheOpponentPokemonSwitchBeenMade = false;
+		
+		System.out.println("The opponent switched his pokemon.");
 		
 		if (doesTheOpponentHaveToSwitchHisPokemon) {
 			for (int i = 0; i < Opponent.opponents.get(Player.getCurrentOpponent() - 1).size(); i++) {
@@ -149,12 +154,12 @@ public class BattleArena {
 		}
 	}
 
-	private static boolean isTheOpponentsCurrentPokemonAlive() {
+	private static boolean isTheOpponentsCurrentPokemonFainted() {
 		int currentOpponentPokemonHP = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getHp();
 		if (currentOpponentPokemonHP > 0) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	private static void attackPlayerPokemon(int opponentAttackChoice) {
