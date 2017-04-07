@@ -3,9 +3,9 @@ package pokemon;
 import java.util.Scanner;
 
 public class Pokemon{
-	protected static int maxHP;
+	protected int maxHP;
 	private int hp;
-	protected static int attackDmg;
+	protected int attackDmg;
 	private String name;
 	private String primaryAttr;
 	private String secondaryAttr;
@@ -92,7 +92,7 @@ public class Pokemon{
 		return secondaryAttr;
 	}
 
-	public static void printAbilities() {
+	public void printAbilities() {
 		System.out.println("Here go the abilities");
 	}
 }

@@ -3,6 +3,7 @@ package main;
 import java.util.List;
 import java.util.Scanner;
 
+
 import items.Potion;
 import pokemon.Bulbasour;
 import pokemon.Caterpie;
@@ -45,7 +46,8 @@ public class ConsoleRenderer implements Renderer{
 		System.out.println("[10]Rattata");
 		System.out.println("Insert the number of"
 				+ " the pokemon you want to view");
-		int choice = input.nextInt();
+		int choice = 0;
+			choice = input.nextInt();		
 		setChosen(choice);
 		switch(choice)
 		{
@@ -93,7 +95,7 @@ public class ConsoleRenderer implements Renderer{
 	@Override
 	public void showPokemon() {
 		
-		int choice;
+		int choice = 0;
 		List<Pokemon> pokemons =Player.getPokemons();
 		if(!named)
 		{
@@ -107,6 +109,7 @@ public class ConsoleRenderer implements Renderer{
 			showAvailablePokemon();
 			System.out.println("Input the number you choose");
 			choice = input.nextInt();
+			
 			if(choice==0)
 			{
 				break;
@@ -190,7 +193,7 @@ public class ConsoleRenderer implements Renderer{
 
 	@Override
 	public void chooseOnePokemon() {
-		int choice=0,chosenPokemon;
+		int choice=0,chosenPokemon=0;
 		do
 		{
 			chosenPokemon=0;
@@ -202,6 +205,7 @@ public class ConsoleRenderer implements Renderer{
 			if(choice==2)
 			{
 				chooseOnePokemon();
+				break;
 			}else if(choice!=1){
 				System.out.println("Choose Yes or No!");
 			}

@@ -40,7 +40,7 @@ public final class  Player {
 
 	private static List<Potion> potions = new ArrayList<>();
 	
-	static List<Pokemon> pokemons = new ArrayList<>();
+	static List<Pokemon> pokemons = new ArrayList<>(3);
 
 	public static void initPotions()
 	{	
@@ -71,21 +71,26 @@ public final class  Player {
 		System.out.println("Successfully added to your inventory");
 	}
 	
+	private static int numOfPokemons = 0;
 	public static void choosePokemon(int num)
 	{
-		switch(num)
+		if(numOfPokemons<3)
 		{
-			case 1: pokemons.add(new Squirtle());break;
-			case 2: pokemons.add(new Bulbasour());break;
-			case 3: pokemons.add(new Charmander());break;
-			case 4: pokemons.add(new Caterpie());break;
-			case 5: pokemons.add(new Geodude());break;
-			case 6: pokemons.add(new Ghastly());break;
-			case 7: pokemons.add(new Hitmonchan());break;
-			case 8: pokemons.add(new Pidgey());break;
-			case 9: pokemons.add(new Pikachu());break;
-			case 10:pokemons.add(new Rattata());break;
+			switch(num)
+			{
+				case 1: pokemons.add(new Squirtle());break;
+				case 2: pokemons.add(new Bulbasour());break;
+				case 3: pokemons.add(new Charmander());break;
+				case 4: pokemons.add(new Caterpie());break;
+				case 5: pokemons.add(new Geodude());break;
+				case 6: pokemons.add(new Ghastly());break;
+				case 7: pokemons.add(new Hitmonchan());break;
+				case 8: pokemons.add(new Pidgey());break;
+				case 9: pokemons.add(new Pikachu());break;
+				case 10:pokemons.add(new Rattata());break;
+			}
 		}
+		numOfPokemons++;
 	}
 	
 	
