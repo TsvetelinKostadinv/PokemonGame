@@ -27,7 +27,8 @@ public class BattleArena {
 	}
 	
 	static void handleBattleInTheArena() {
-		System.out.println(Opponent.opponents.get(Player.getCurrentOpponent() - 1).size());
+		//System.out.println(Opponent.opponents.get(Player.getCurrentOpponent() - 1).size());
+		Player.setHasPlayerForfeited(false);
 		outputBattleStartingInformation();
 		
 		while(!hasSomeoneWonTheMatch()) {
