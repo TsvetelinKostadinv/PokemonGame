@@ -76,22 +76,22 @@ public final class Opponent {
 		opponents.add(pokemons.subList(3, 6));
 		Opponent.setOpponentName("Gill", 2);
 		Opponent.setOpponentMoney(300, 2);
-		Opponent.setOpeningWords("Huh, you beat Bill but you won't beat me chump!!!", 1);
+		Opponent.setOpeningWords("Huh, you beat Bill but you won't beat me chump!!!", 2);
 		
 		opponents.add(pokemons.subList(6, 9));
 		Opponent.setOpponentName("Kill", 3);
 		Opponent.setOpponentMoney(400, 3);
-		Opponent.setOpeningWords("You defeated my brothers, PREPARE TO DIE TO KILL!!!", 1);
+		Opponent.setOpeningWords("You defeated my brothers, PREPARE TO DIE TO KILL!!!", 3);
 		
 		opponents.add(pokemons.subList(9, 12));
 		Opponent.setOpponentName("Hill", 4);
 		Opponent.setOpponentMoney(500, 4);
-		Opponent.setOpeningWords("You climbed to here but you won't be over to climb over me - Hill!!!", 1);
+		Opponent.setOpeningWords("You climbed to here but you won't be over to climb over me - Hill!!!", 4);
 		
 		opponents.add(pokemons.subList(12, 15));
 		Opponent.setOpponentName("Till", 5);
 		Opponent.setOpponentMoney(1000, 5);
-		Opponent.setOpeningWords("Nice job coming so far friend... Gotcha, you are no friend of mine. LET'S D-D-DDDUEL.", 1);
+		Opponent.setOpeningWords("Nice job coming so far friend... Gotcha, you are no friend of mine. LET'S D-D-DDDUEL.", 5);
 		
 		
 		for (int i = 0; i < opponents.size(); i++) {
