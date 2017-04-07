@@ -190,8 +190,25 @@ public class PokemonResolver {
 			default:
 				return MissingNo;	
 			}
+		case "poison":
+			switch (attributeOfTheDefendingPokemon) {
+			case "grass":
+			case "bug":
+				return pokemonAttacker;
+
+
+			case "ground":
+			case "ghost":	
+			case "rock":
+			case "poison":
+				return pokemonDefender;
+
+			default:
+				return MissingNo;	
+			}
+	
 		default:
-			return null;
+			return MissingNo;
 		}		
 		
 		
