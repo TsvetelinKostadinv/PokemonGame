@@ -4,9 +4,9 @@ import items.Potion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
-import pokemon.Pokemon;
 import pokemon.*;
 
 import items.HealPotion;
@@ -34,10 +34,12 @@ public class BattleArena {
 		while(!hasSomeoneWonTheMatch()) {
 			outputBattleScene();
 			handleOurTurn();
+			outputOutputSeparation();
 			handleOpponentsTurn();
 		}
 		
 		outputMatchConclusion();
+		outputOutputSeparation();
 	}
 	
 	private static void outputMatchConclusion() {
@@ -123,16 +125,26 @@ public class BattleArena {
 
 	private static void handleOpponentsTurn() {
 		//TODO the opponent has more tactical knowledge
+		outputBeginningOfOpponentTurn();
+		
 		if (Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0 && !Player.getHasPlayerForfeited()) {
 			boolean doesTheOpponentHaveToSwitchHisPokemon = isTheOpponentsCurrentPokemonFainted();
 			handleOpponentPokemonSwitching(doesTheOpponentHaveToSwitchHisPokemon);
 			
 			if (!doesTheOpponentHaveToSwitchHisPokemon) {
+				Random rand = new Random();
 				int opponentAttackChoice = 1;
 				attackPlayerPokemon(opponentAttackChoice); //TODO random(1, 4)
 			
 			}
+			
+			outputOutputSeparation();
 		}
+	}
+
+	private static void outputBeginningOfOpponentTurn() {
+		System.out.println(Opponent.getOpponentName(Player.getCurrentOpponent()) + "'s turn:");
+		System.out.println("-------------------------------------------------------------");
 	}
 
 	private static void handleOpponentPokemonSwitching(
@@ -204,7 +216,7 @@ public class BattleArena {
 
 	private static void outputTheBeginningOfOurTurn() {
 		System.out.println(Player.getName() + "'s turn:");
-		System.out.println("-----------------------------");
+		System.out.println("-------------------------------------------------------------");
 	}
 
 	private static void handleOurTurn() {
@@ -266,6 +278,9 @@ public class BattleArena {
 			//TODO
 		} else {
 			System.out.println("You decided not to forfeit. That's the spirit!");
+			outputOutputSeparation();
+			outputBattleScene();
+			outputTurnOptions();
 			decideHowToProceedWithTurn();
 		}
 	}
@@ -307,6 +322,9 @@ public class BattleArena {
 				pokemonChoice != 0);
 		
 		if (pokemonChoice == 0) {
+			outputOutputSeparation();
+			outputBattleScene();
+			outputTurnOptions();
 			decideHowToProceedWithTurn();
 		} else {
 			Player.setCurrentPokemon(pokemonChoice);
@@ -368,6 +386,9 @@ public class BattleArena {
 		
 		if (potionChoice == 0) {
 			System.out.println("Left the shop.");
+			outputOutputSeparation();
+			outputBattleScene();
+			outputTurnOptions();
 			decideHowToProceedWithTurn();
 		} else if (potionChoice == 1 || potionChoice == 2 || potionChoice == 3) {
 			int selectedPokemon = selectedPokemonOnWhichToUseItem();
@@ -422,6 +443,9 @@ public class BattleArena {
 				pokemonChoice != 0);
 				
 		if (pokemonChoice == 0) {
+			outputOutputSeparation();
+			outputBattleScene();
+			outputTurnOptions();
 			decideHowToProceedWithTurn();
 		}
 				
@@ -449,6 +473,9 @@ public class BattleArena {
 			attackOpponentPokemon(attackChoice);
 			//TODO make the attack type and attack damage count
 		} else if (attackChoice == 0) {
+			outputOutputSeparation();
+			outputBattleScene();
+			outputTurnOptions();
 			decideHowToProceedWithTurn();
 		}
 	}
@@ -513,7 +540,16 @@ public class BattleArena {
 	}
 
 	static void outputBattleStartingInformation() {
+		System.out.println();
+		System.out.println("THE BATTLE HAS STARTED");
 		System.out.println(Player.getName() + " VS " + Opponent.getOpponentName(Player.getCurrentOpponent()));
 		System.out.println(Opponent.getOpponentName(Player.getCurrentOpponent()) + ": " + Opponent.getOpeningWords(Player.getCurrentOpponent()));
+		outputOutputSeparation();
+	}
+	
+	static void outputOutputSeparation() {
+		System.out.println();
+		System.out.println("-------------------------------------------------------------");
+		System.out.println();
 	}
 }
