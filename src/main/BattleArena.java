@@ -140,14 +140,15 @@ public class BattleArena {
 		
 		boolean hasTheOpponentPokemonSwitchBeenMade = false;
 		
-		System.out.println("The opponent switched his pokemon.");
-		
 		if (doesTheOpponentHaveToSwitchHisPokemon) {
+			
 			for (int i = 0; i < Opponent.opponents.get(Player.getCurrentOpponent() - 1).size(); i++) {
 				if (Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(i).getHp() > 0) {
 					Opponent.setCurrentOpponentPokemon(i + 1);
 					hasTheOpponentPokemonSwitchBeenMade = true;
 					
+					System.out.println("The opponent switched his pokemon.");
+			
 					break;
 				}
 			}	
@@ -169,6 +170,25 @@ public class BattleArena {
 		Pokemon currentOpponentPokemon = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1); //-1?
 		int currentPlayerPokemonHP = currentPlayerPokemon.getHp();
 		int opponentCurrentPokemonDamage = currentOpponentPokemon.getAttackDmg();
+		
+		Pokemon theStrongestPokemonInTheCurrentClash = PokemonResolver.decideWhosTypeISStronger(currentOpponentPokemon, Player.pokemons.get(Player.getCurrentPokemon() - 1), opponentAttackChoice);
+		
+		//System.out.println(theStrongestPokemonInTheCurrentClash);
+		
+		Pokemon attackingPokemon = currentOpponentPokemon;
+		Pokemon defendingPokemon = Player.pokemons.get(Player.getCurrentPokemon() - 1);
+		if (theStrongestPokemonInTheCurrentClash.equals(attackingPokemon)) {
+			opponentCurrentPokemonDamage *= 1.5;
+			System.out.println(attackingPokemon.getName() + "'s attack was super effective!");
+		} else if (theStrongestPokemonInTheCurrentClash.equals(defendingPokemon)) {
+			opponentCurrentPokemonDamage *= 0.5;
+			System.out.println(attackingPokemon.getName() + "'s attack was not very effective!");
+		} else if (theStrongestPokemonInTheCurrentClash instanceof MissingNo) {
+			//the attack was neither effective or ineffective
+			System.out.println(attackingPokemon.getName() + "'s attack was successful!");
+			opponentCurrentPokemonDamage *= 1;
+		}
+		
 		int playerPokemonHPAfterOutAttack = currentPlayerPokemonHP - opponentCurrentPokemonDamage;
 		currentPlayerPokemon.takeDamage(opponentCurrentPokemonDamage);
 		
@@ -270,6 +290,7 @@ public class BattleArena {
 		if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() <= 0) {
 			System.out.println("Select a live pokemon to switch to (1-3)");	
 		}
+		
 		do {
 			pokemonChoice = input.nextInt();
 			
@@ -287,10 +308,10 @@ public class BattleArena {
 		
 		if (pokemonChoice == 0) {
 			decideHowToProceedWithTurn();
+		} else {
+			Player.setCurrentPokemon(pokemonChoice);
+			System.out.println("You switched to " + Player.pokemons.get(Player.getCurrentPokemon() - 1).getName());
 		}
-		
-		Player.setCurrentPokemon(pokemonChoice);
-		System.out.println("You switched to " + Player.pokemons.get(Player.getCurrentPokemon() - 1).getName());
 	}
 
 	private static void chooseFromItemOptions() {
@@ -366,7 +387,7 @@ public class BattleArena {
 			Player.setNumberOfHealingPots(Player.getNumberOfHealingPots() - 1);
 			System.out.println(selectedPokemon.getName() + " consumed a healing potion.");
 		} else if (potionChoice == 2) { //StrengthPotion
-			selectedPokemon.setAttackDmg(selectedPokemon.getAttackDmg() + 10);
+			Player.pokemons.get(pokemonChoice - 1).setAttackDmg(Player.pokemons.get(pokemonChoice - 1).getAttackDmg() + 10);
 			Player.setNumberOfStrenghtPots(Player.getNumberOfStrenghtPots() - 1);
 			System.out.println(selectedPokemon.getName() + " consumed a strength potion.");
 		} else if (potionChoice == 3) { //MaxHPPotion
@@ -434,11 +455,28 @@ public class BattleArena {
 
 
 	private static void attackOpponentPokemon(int attackChoice) {
-		//TODO this might all not work
 		Pokemon currentOpponentPokemon = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1); //-1?
-		
 		int currentOpponentPokemonHP = currentOpponentPokemon.getHp();
 		int playerCurrentPokemonDamage = Player.pokemons.get(Player.getCurrentPokemon() - 1).getAttackDmg();
+		
+		Pokemon theStrongestPokemonInTheCurrentClash = PokemonResolver.decideWhosTypeISStronger(Player.pokemons.get(Player.getCurrentPokemon() - 1), currentOpponentPokemon, attackChoice);
+		
+		//System.out.println(theStrongestPokemonInTheCurrentClash);
+		
+		Pokemon attackingPokemon = Player.pokemons.get(Player.getCurrentPokemon() - 1);
+		Pokemon defendingPokemon = currentOpponentPokemon;
+		if (theStrongestPokemonInTheCurrentClash.equals(attackingPokemon)) {
+			playerCurrentPokemonDamage *= 1.5;
+			System.out.println(attackingPokemon.getName() + "'s attack was super effective!");
+		} else if (theStrongestPokemonInTheCurrentClash.equals(defendingPokemon)) {
+			playerCurrentPokemonDamage *= 0.5;
+			System.out.println(attackingPokemon.getName() + "'s attack was not very effective!");
+		} else if (theStrongestPokemonInTheCurrentClash instanceof MissingNo) {
+			//the attack was neither effective or uneffective
+			System.out.println(attackingPokemon.getName() + "'s attack was successful!");
+			playerCurrentPokemonDamage *= 1;
+		}
+		
 		int opponentPokemonHPAfterOurAttack = currentOpponentPokemonHP - playerCurrentPokemonDamage;
 		currentOpponentPokemon.takeDamage(playerCurrentPokemonDamage/*opponentPokemonHPAfterOurAttack*/);
 		
