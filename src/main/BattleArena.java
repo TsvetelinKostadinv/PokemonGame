@@ -27,6 +27,7 @@ public class BattleArena {
 	}
 	
 	static void handleBattleInTheArena() {
+		System.out.println(Opponent.opponents.get(Player.getCurrentOpponent() - 1).size());
 		outputBattleStartingInformation();
 		
 		while(!hasSomeoneWonTheMatch()) {
@@ -39,27 +40,63 @@ public class BattleArena {
 	}
 	
 	private static void outputMatchConclusion() {
-		if (Player.getLivePokemonCount() > 0 && Opponent.getLivePokemonCount(Player.getCurrentOpponent()) < 0 && !Player.getHasPlayerForfeited()) {
+		if (Player.getLivePokemonCount() > 0 && Opponent.getLivePokemonCount(Player.getCurrentOpponent()) <= 0 && !Player.getHasPlayerForfeited()) {
 			System.out.println("You won the match.");
 			outputUpcomingOpponentInfo();
 			awardMoneyToThePlayer();
 			
 			restoreAllPokemonToFullHealth();
+			restorePlayerAndOpponentTeamOrders();
+			
 			moveUpToNextOpponent();
+		} else if ((Player.getLivePokemonCount() <= 0 && Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0) || Player.getHasPlayerForfeited()) {
+			System.out.println("You lost the match.");
+			takeMoneyFromThePlayer();
+			
+			restoreAllPokemonToFullHealth();
+			restorePlayerAndOpponentTeamOrders();
 		}
+		
+		//TODO put methods used both in if and else if here
 
 	}
 
+	private static void restorePlayerAndOpponentTeamOrders() {
+		Opponent.setCurrentOpponentPokemon(1);
+		Player.setCurrentPokemon(1);
+	}
+
+	private static void takeMoneyFromThePlayer() {
+		int moneyLost = 0;
+		if (Player.getMoney() > Opponent.getOpponentMoney(Player.getCurrentOpponent())/2) {
+			moneyLost = Opponent.getOpponentMoney(Player.getCurrentOpponent())/2;
+			Player.setMoney(Player.getMoney() - moneyLost);
+		} else if (Player.getMoney() <= Opponent.getOpponentMoney(Player.getCurrentOpponent())/2){
+			moneyLost = Player.getMoney();
+			Player.setMoney(0);
+		}
+		System.out.println("You lost " + moneyLost + "PokeDollars");
+	}
+
 	private static void restoreAllPokemonToFullHealth() {
-		System.out.println("Nurse Joy healed all your pokemon back to full health.");
+		System.out.println("Nurse Joy healed all your and " + Opponent.getOpponentName(Player.getCurrentOpponent()) + "'s pokemon back to full health.");
+		
+		//heal all player pokemon
 		for (int i = 0; i < Player.pokemons.size(); i++) {
 			Player.pokemons.get(i).heal(Player.pokemons.get(i).getMaxHP() - Player.pokemons.get(i).getHp());
 		}
+		
+		//heal all opponent pokemon
+		for (int i = 0; i < Opponent.opponents.get(Player.getCurrentOpponent() - 1).size(); i++) {
+			Pokemon opponentPokemon = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(i); 
+			opponentPokemon.heal(opponentPokemon.getMaxHP() - opponentPokemon.getHp());
+		}	
 	}
 
 	private static void moveUpToNextOpponent() {
 		if (Player.getCurrentOpponent() < Opponent.OPPONENT_COUNT) {
 			Player.setCurrentOpponent(Player.getCurrentOpponent() + 1);
+			Player.setHasPlayerForfeited(false);
 			Opponent.setCurrentOpponentPokemon(1); //starting pokemon
 		}
 	}
@@ -86,16 +123,46 @@ public class BattleArena {
 	private static void handleOpponentsTurn() {
 		//TODO the opponent has more tactical knowledge
 		if (Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0 && !Player.getHasPlayerForfeited()) {
+			boolean doesTheOpponentHaveToSwitchHisPokemon = isTheOpponentsCurrentPokemonAlive();
+			handleOpponentPokemonSwitching(doesTheOpponentHaveToSwitchHisPokemon);
+			
 			int opponentAttackChoice = 1;
 			attackPlayerPokemon(opponentAttackChoice); //TODO random(1, 4)
 		}
 	}
 
+	private static void handleOpponentPokemonSwitching(
+			boolean doesTheOpponentHaveToSwitchHisPokemon) {
+		
+		boolean hasTheOpponentPokemonSwitchBeenMade = false;
+		
+		if (doesTheOpponentHaveToSwitchHisPokemon) {
+			for (int i = 0; i < Opponent.opponents.get(Player.getCurrentOpponent() - 1).size(); i++) {
+				if (Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(i).getHp() > 0) {
+					Opponent.setCurrentOpponentPokemon(i + 1);
+					hasTheOpponentPokemonSwitchBeenMade = true;
+					
+					break;
+				}
+			}	
+			Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getHp();
+		}
+	}
+
+	private static boolean isTheOpponentsCurrentPokemonAlive() {
+		int currentOpponentPokemonHP = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1).getHp();
+		if (currentOpponentPokemonHP > 0) {
+			return true;
+		}
+		return false;
+	}
+
 	private static void attackPlayerPokemon(int opponentAttackChoice) {
 		//TODO this might all not work
 		Pokemon currentPlayerPokemon = Player.pokemons.get(Player.getCurrentPokemon() - 1);
+		Pokemon currentOpponentPokemon = Opponent.opponents.get(Player.getCurrentOpponent() - 1).get(Opponent.getCurrentOpponentPokemon() - 1); //-1?
 		int currentPlayerPokemonHP = currentPlayerPokemon.getHp();
-		int opponentCurrentPokemonDamage = currentPlayerPokemon.getAttackDmg();
+		int opponentCurrentPokemonDamage = currentOpponentPokemon.getAttackDmg();
 		int playerPokemonHPAfterOutAttack = currentPlayerPokemonHP - opponentCurrentPokemonDamage;
 		currentPlayerPokemon.takeDamage(opponentCurrentPokemonDamage);
 		
@@ -125,13 +192,17 @@ public class BattleArena {
 		
 		System.out.println("Choice: ");
 		
-		do {
-			choice = input.nextInt();
-			
-			if (choice != 1 && choice != 2 && choice != 3 && choice != 4) {
-				System.out.println("Invalid input, try again.");
-			}
-		} while (choice != 1 && choice != 2 && choice != 3 && choice != 4);
+		if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() <= 0) {
+			choice = 2; //we automatically select to go to the pokemon menu
+		} else {//if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() > 0) {
+			do {
+				choice = input.nextInt();
+				
+				if (choice != 1 && choice != 2 && choice != 3 && choice != 4) {
+					System.out.println("Invalid input, try again.");
+				}
+			} while (choice != 1 && choice != 2 && choice != 3 && choice != 4);
+		}
 		
 		manageChoice(choice);
 	}
@@ -185,20 +256,27 @@ public class BattleArena {
 			} 
 		}
 		
-		System.out.println("Select a live pokemon to switch to (1-3) or exit (0)");
+		//because when we are forced to choose our pokemon we can't exit
+		if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() > 0) {
+			System.out.println("Select a live pokemon to switch to (1-3) or exit (0)");
+		}
+		
+		if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() <= 0) {
+			System.out.println("Select a live pokemon to switch to (1-3)");	
+		}
 		do {
 			pokemonChoice = input.nextInt();
 			
-			if ((pokemonChoice != 1 || (pokemonChoice == 1 && Player.pokemons.get(0).getHp() <= 0)) && 
-					(pokemonChoice != 2 || (pokemonChoice == 2 && Player.pokemons.get(1).getHp() <= 0)) &&
-					(pokemonChoice != 3 || (pokemonChoice == 3 && Player.pokemons.get(2).getHp() <= 0)) &&
+			if ((pokemonChoice != 1 || (pokemonChoice == 1 && (Player.pokemons.get(0).getHp() <= 0 || Player.getCurrentPokemon() == 1))) && 
+					(pokemonChoice != 2 || (pokemonChoice == 2 && (Player.pokemons.get(1).getHp() <= 0 || Player.getCurrentPokemon() == 2))) &&
+					(pokemonChoice != 3 || (pokemonChoice == 3 && (Player.pokemons.get(2).getHp() <= 0 || Player.getCurrentPokemon() == 3))) &&
 					pokemonChoice != 0) {
 				System.out.println("You either selected a non-existent pokemon or a fainted one.");
 			}
 			
-		} while ((pokemonChoice != 1 || (pokemonChoice == 1 && Player.pokemons.get(0).getHp() <= 0)) && 
-				(pokemonChoice != 2 || (pokemonChoice == 2 && Player.pokemons.get(1).getHp() <= 0)) &&
-				(pokemonChoice != 3 || (pokemonChoice == 3 && Player.pokemons.get(2).getHp() <= 0)) &&
+		} while ((pokemonChoice != 1 || (pokemonChoice == 1 && (Player.pokemons.get(0).getHp() <= 0 || Player.getCurrentPokemon() == 1))) && 
+				(pokemonChoice != 2 || (pokemonChoice == 2 && (Player.pokemons.get(1).getHp() <= 0 || Player.getCurrentPokemon() == 2))) &&
+				(pokemonChoice != 3 || (pokemonChoice == 3 && (Player.pokemons.get(2).getHp() <= 0 || Player.getCurrentPokemon() == 3))) &&
 				pokemonChoice != 0);
 		
 		if (pokemonChoice == 0) {
@@ -240,10 +318,7 @@ public class BattleArena {
 					// NOT WORKING MaxHPPotion.getName(), MaxHPPotion.getDescription(), Player.getNumberOfMaxHPPots());
 		//}
 		
-			
 		chooseFromPotionOptions(hasHealingPots, hasStrenghtPots, hasMaxHPPots);
-		
-		
 	}
 
 	private static void chooseFromPotionOptions(boolean hasHealingPots,
@@ -268,10 +343,65 @@ public class BattleArena {
 			System.out.println("Left the shop.");
 			decideHowToProceedWithTurn();
 		} else if (potionChoice == 1 || potionChoice == 2 || potionChoice == 3) {
-			System.out.println("Choose which pokemon to use the potion on: ");
-			//TODO let the player choose the pokemon, activate() should then be used to use the potion
+			int selectedPokemon = selectedPokemonOnWhichToUseItem();
+			handlePotionConsumptionByThePokemon(potionChoice, selectedPokemon);
 		}
 	}
+
+	private static void handlePotionConsumptionByThePokemon(int potionChoice,
+			int pokemonChoice) {
+		//TODO MAKE THIS DYNAMIC
+		
+		Pokemon selectedPokemon = Player.pokemons.get(pokemonChoice - 1);
+		
+		//selected HealPotion
+		if (potionChoice == 1) {
+			selectedPokemon.heal(25);
+			Player.setNumberOfHealingPots(Player.getNumberOfHealingPots() - 1);
+			System.out.println(selectedPokemon.getName() + " consumed a healing potion.");
+		} else if (potionChoice == 2) { //StrengthPotion
+			selectedPokemon.setAttackDmg(selectedPokemon.getAttackDmg() + 10);
+			Player.setNumberOfStrenghtPots(Player.getNumberOfStrenghtPots() - 1);
+			System.out.println(selectedPokemon.getName() + " consumed a strength potion.");
+		} else if (potionChoice == 3) { //MaxHPPotion
+			selectedPokemon.heal(selectedPokemon.getMaxHP());
+			Player.setNumberOfMaxHPPots(Player.getNumberOfMaxHPPots() - 1);
+			System.out.println(selectedPokemon.getName() + " consumed a maxHP potion.");
+		}
+	}
+
+	private static int selectedPokemonOnWhichToUseItem() {
+		int pokemonChoice;
+		
+		//The player has no pokemon attached to him Player.pokemons.size() = 0
+		for (int i = 0; i < Player.pokemons.size(); i++) {
+			System.out.println("  [" + (i + 1) + "] " + Player.pokemons.get(i).getName() + " HP:" + Player.pokemons.get(i).getHp()); 
+		}
+				
+		System.out.println("Select a live pokemon to switch to (1-3) or exit (0)");
+		do {
+			pokemonChoice = input.nextInt();
+					
+			if ((pokemonChoice != 1 || (pokemonChoice == 1 && (Player.pokemons.get(0).getHp() <= 0))) && 
+					(pokemonChoice != 2 || (pokemonChoice == 2 && (Player.pokemons.get(1).getHp() <= 0))) &&
+					(pokemonChoice != 3 || (pokemonChoice == 3 && (Player.pokemons.get(2).getHp() <= 0))) &&
+					pokemonChoice != 0) {
+				System.out.println("You either selected a non-existent pokemon or a fainted one.");
+			}
+					
+		} while ((pokemonChoice != 1 || (pokemonChoice == 1 && (Player.pokemons.get(0).getHp() <= 0))) && 
+					(pokemonChoice != 2 || (pokemonChoice == 2 && (Player.pokemons.get(1).getHp() <= 0))) &&
+					(pokemonChoice != 3 || (pokemonChoice == 3 && (Player.pokemons.get(2).getHp() <= 0))) &&
+				pokemonChoice != 0);
+				
+		if (pokemonChoice == 0) {
+			decideHowToProceedWithTurn();
+		}
+				
+		//System.out.println("You selected to " + Player.pokemons.get(Player.getCurrentPokemon() - 1).getName());
+		return pokemonChoice;//Player.pokemons.get(pokemonChoice - 1);
+	}
+	
 
 	private static void chooseFromAttackOptions() {
 		//TODO test if it works in the ConsoleRendered
@@ -317,17 +447,24 @@ public class BattleArena {
 	}
 
 	private static void outputTurnOptions() {
+		if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() <= 0) {
+			System.out.println("*) You have to switch your pokemon, because your current one has fainted.");
+		}
+		//if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() > 0) {
 		System.out.println("1) Attack");
 		System.out.println("2) Pokemon");
 		System.out.println("3) Items");
 		System.out.println("4) Forfeit");
+		//} else if (Player.pokemons.get(Player.getCurrentPokemon() - 1).getHp() <= 0) {
+			
+			
+		//}
 	}
 
 	private static boolean hasSomeoneWonTheMatch() {
 		if (Player.getLivePokemonCount() > 0 && Opponent.getLivePokemonCount(Player.getCurrentOpponent()) > 0 && !Player.getHasPlayerForfeited()) {
 			return false;
 		}
-
 		return true;
 	}
 
