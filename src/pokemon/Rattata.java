@@ -6,7 +6,7 @@ public class Rattata extends Pokemon implements AttacksNormal{
 		super(maxHP, attackDmg, "normal", "normal");
 	}
 	public Rattata() {
-		super(100, 30, "normal", "normal", "Rattata");
+		super(90, 20, "normal", "normal", "Rattata");
 	}
 	
 	@Override
