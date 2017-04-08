@@ -6,7 +6,7 @@ public class Pikachu extends Pokemon implements AttacksElectric{
 		super(maxHP, attackDmg, "electricity", "electricity");
 	}
 	public Pikachu() {
-		super(100, 30, "electricity", "electricity", "Pikachu");
+		super(40, 50, "electricity", "electricity", "Pikachu");
 	}
 	@Override
 	public int hyperFang()
