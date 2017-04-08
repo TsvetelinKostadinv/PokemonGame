@@ -6,7 +6,7 @@ public class Pidgey extends Pokemon implements AttacksFlying{
 		super(maxHP, attackDmg, "flying", "normal");
 	}
 	public Pidgey() {
-		super(100, 30, "flying", "normal", "Pidgey" );
+		super(75, 30, "flying", "normal", "Pidgey" );
 	}	
 	@Override
 	public int hyperFang()
