@@ -48,24 +48,24 @@ public final class Opponent {
 	}
 
 	public static void initOpponents() {
-		pokemons.add(new Rattata());
 		pokemons.add(new Caterpie());
 		pokemons.add(new Geodude());
+		pokemons.add(new Rattata());
 		
 		pokemons.add(new Hitmonchan());
+		pokemons.add(new Charmander());
+		pokemons.add(new Pidgey());
+		
+		pokemons.add(new Pikachu());
+		pokemons.add(new Ghastly());
+		pokemons.add(new Rattata());
+		
+		pokemons.add(new Bulbasour());
 		pokemons.add(new Ghastly());
 		pokemons.add(new Caterpie());
 		
-		pokemons.add(new Hitmonchan());
-		pokemons.add(new Ghastly());
 		pokemons.add(new Caterpie());
-		
-		pokemons.add(new Hitmonchan());
-		pokemons.add(new Ghastly());
 		pokemons.add(new Caterpie());
-		
-		pokemons.add(new Hitmonchan());
-		pokemons.add(new Ghastly());
 		pokemons.add(new Caterpie());
 		
 		opponents.add(pokemons.subList(0, 3));
@@ -93,7 +93,10 @@ public final class Opponent {
 		Opponent.setOpponentMoney(1000, 5);
 		Opponent.setOpeningWords("Nice job coming so far friend... Gotcha, you are no friend of mine. LET'S D-D-DDDUEL.", 5);
 		
-		
+		System.out.println();
+		System.out.println();
+		System.out.println("OPPONENTS");
+		System.out.println();
 		for (int i = 0; i < opponents.size(); i++) {
 			System.out.println("Opponent " + Opponent.getOpponentName(i+1) + " pokemon:");
 			for(int j = 0; j < opponents.get(i).size(); j++) {
@@ -102,6 +105,8 @@ public final class Opponent {
 			}
 			System.out.println();
 		}
+		System.out.println();
+		System.out.println();
 	}
 	
 	public static void initPotions()
