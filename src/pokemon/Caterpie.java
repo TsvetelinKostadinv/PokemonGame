@@ -1,6 +1,6 @@
 package pokemon;
 
-public class Caterpie extends Pokemon implements AttacksBug{
+public class Caterpie extends Pokemon implements AttacksBugs{
 
 	public Caterpie(int maxHP, int attackDmg, String name) {
 		super(maxHP, attackDmg, "bug", "bug", name);

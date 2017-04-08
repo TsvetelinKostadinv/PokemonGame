@@ -1,22 +1,13 @@
 package main;
 
-import items.Potion;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import pokemon.*;
 
-import items.HealPotion;
-import items.MaxHPPotion;
-import items.StrenghtPotion;
-import main.ConsoleRenderer;
 import main.Player;
 import main.Opponent;
 import pokemon.Pokemon;
-import main.Shop;
 
 
 public class BattleArena {
@@ -132,7 +123,6 @@ public class BattleArena {
 			handleOpponentPokemonSwitching(doesTheOpponentHaveToSwitchHisPokemon);
 			
 			if (!doesTheOpponentHaveToSwitchHisPokemon) {
-				Random rand = new Random();
 				int opponentAttackChoice = 1;
 				attackPlayerPokemon(opponentAttackChoice); //TODO random(1, 4)
 			
@@ -486,8 +476,20 @@ public class BattleArena {
 		int currentOpponentPokemonHP = currentOpponentPokemon.getHp();
 		int playerCurrentPokemonDamage = Player.pokemons.get(Player.getCurrentPokemon() - 1).getAttackDmg();
 		
+		Pokemon playerCurrentPokemon = Player.pokemons.get(Player.getCurrentPokemon() - 1);
+		
 		Pokemon theStrongestPokemonInTheCurrentClash = PokemonResolver.decideWhosTypeISStronger(Player.pokemons.get(Player.getCurrentPokemon() - 1), currentOpponentPokemon, attackChoice);
 		
+		if(playerCurrentPokemon instanceof Squirtle && attackChoice == 4 && playerCurrentPokemon.getName().equals("Magicarp"))
+		{
+			System.out.println(playerCurrentPokemon.getName()+" used Splash!");
+			System.out.println("A little suspicious"
+					+ " if it would deal damage but it did,"
+					+ " so good for you");
+		}else if(playerCurrentPokemon instanceof Charmander && attackChoice == 3 && playerCurrentPokemon.getName().equals("Hans"))
+		{
+			System.out.println("Hans get ze flammenwerfer....oh wrong meme...");
+		}
 		//System.out.println(theStrongestPokemonInTheCurrentClash);
 		
 		Pokemon attackingPokemon = Player.pokemons.get(Player.getCurrentPokemon() - 1);
