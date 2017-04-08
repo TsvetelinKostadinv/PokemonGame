@@ -6,7 +6,7 @@ public class Bulbasour extends Pokemon implements AttacksGrass{
 		super(maxHP, attackDmg, "grass", "poison");
 	}
 	public Bulbasour() {
-		super(150, 25, "grass", "poison", "Bulbasour");
+		super(120, 25, "grass", "poison", "Bulbasour");
 	}
 	@Override
 	public int hyperFang()
