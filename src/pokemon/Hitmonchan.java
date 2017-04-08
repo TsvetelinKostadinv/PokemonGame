@@ -6,7 +6,7 @@ public class Hitmonchan extends Pokemon implements AttacksFighting{
 		super(maxHP, attackDmg, "fighting", "fighting");
 	}
 	public Hitmonchan() {
-		super(100, 30, "fighting", "fighting", "Hitmonchan");
+		super(90, 30, "fighting", "fighting", "Hitmonchan");
 	}
 	
 	@Override
